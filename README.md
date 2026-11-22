@@ -8,12 +8,13 @@ di design sono in [`docs/DESIGN.md`](docs/DESIGN.md).
 
 Guida completa all'uso, componente per componente: [`docs/README.md`](docs/README.md).
 
-| Componente                             | Tipo          | Uso                                 |
-| -------------------------------------- | ------------- | ----------------------------------- |
-| Button                                 | web component | `<kaamos-button variant="primary">` |
-| Text input                             | web component | `<kaamos-text-input name="email">`  |
-| Search bar                             | web component | `<kaamos-search-bar name="q">`      |
-| Badge, keycap, app icon tile, pill tab | classi CSS    | `class="kaamos-badge-pro"`          |
+| Componente                             | Tipo                     | Uso                                               |
+| -------------------------------------- | ------------------------ | ------------------------------------------------- |
+| Button                                 | web component            | `<kaamos-button variant="primary">`               |
+| Text input                             | web component            | `<kaamos-text-input name="email">`                |
+| Search bar                             | web component            | `<kaamos-search-bar name="q">`                    |
+| Checkbox, select, slider               | elemento nativo + classe | `<input type="checkbox" class="kaamos-checkbox">` |
+| Badge, keycap, app icon tile, pill tab | classi CSS               | `class="kaamos-badge-pro"`                        |
 
 ## Sviluppo (Vite+)
 

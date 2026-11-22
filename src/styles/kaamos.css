@@ -15,7 +15,7 @@
 /* Le classi statiche (@utility) non sono usate dentro i componenti, quindi
    Tailwind non le troverebbe. @source inline le aggiunge comunque al CSS
    compilato, così chi usa kaamos.css senza Tailwind le ha a disposizione. */
-@source inline("kaamos-badge-pro kaamos-badge-info kaamos-keycap kaamos-app-icon-tile kaamos-app-icon-tile-lg kaamos-pill-tab");
+@source inline("kaamos-badge-pro kaamos-badge-info kaamos-keycap kaamos-app-icon-tile kaamos-app-icon-tile-lg kaamos-pill-tab kaamos-checkbox kaamos-select kaamos-range");
 
 @layer base {
   html {

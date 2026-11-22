@@ -2,10 +2,11 @@
 
 Il design system Kaamos è fatto di due tipi di componenti:
 
-| Tipo                   | Quando                                 | Come si usa                    | Esempi                                 |
-| ---------------------- | -------------------------------------- | ------------------------------ | -------------------------------------- |
-| **Web component**      | il componente ha comportamento o stato | un tag: `<kaamos-button>`      | button, text-input, search-bar         |
-| **Classe CSS statica** | il componente è solo stile             | una classe su un elemento HTML | badge, keycap, app-icon-tile, pill-tab |
+| Tipo                         | Quando                                 | Come si usa                          | Esempi                                 |
+| ---------------------------- | -------------------------------------- | ------------------------------------ | -------------------------------------- |
+| **Web component**            | il componente ha comportamento o stato | un tag: `<kaamos-button>`            | button, text-input, search-bar         |
+| **Classe CSS statica**       | il componente è solo stile             | una classe su un elemento HTML       | badge, keycap, app-icon-tile, pill-tab |
+| **Elemento nativo + classe** | il browser ha già il controllo giusto  | una classe su `<input>` o `<select>` | checkbox, select, slider               |
 
 Le specifiche visive (colori, tipografia, misure) sono in [`DESIGN.md`](DESIGN.md).
 
@@ -56,6 +57,7 @@ export class AppComponent {}
 - [Button](components/button.md)
 - [Text input](components/text-input.md)
 - [Search bar](components/search-bar.md)
+- [Controlli dei form: checkbox, select, slider](components/form-controls.md)
 - [Classi statiche: badge, keycap, app-icon-tile, pill-tab](components/static.md)
 
 ## Token

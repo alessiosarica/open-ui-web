@@ -65,3 +65,132 @@
     @apply cursor-not-allowed text-ash;
   }
 }
+
+/* =====================================================================
+ * Controlli dei form: elementi NATIVI con lo stile di Kaamos.
+ * Restano <input> e <select> veri, quindi funzionano con form, tastiera,
+ * screen reader e con i form di Angular (ngModel, reactive forms) senza
+ * adattatori. appearance: none toglie lo stile del sistema operativo.
+ * ===================================================================== */
+
+/* ---- checkbox: <input type="checkbox" class="kaamos-checkbox"> ----
+   Selezionata usa il bianco del primary con la spunta nera (on-primary).
+   La spunta è un SVG in data URI: dentro un URL le variabili CSS non
+   funzionano, per questo il colore #000 è scritto a mano. */
+@utility kaamos-checkbox {
+  @apply size-4 shrink-0 cursor-pointer appearance-none rounded-xs border border-hairline-strong bg-surface-elevated;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 12px 12px;
+
+  &:checked {
+    @apply border-primary bg-primary;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 6.25l2.25 2.25 4.75-5'/%3E%3C/svg%3E");
+  }
+
+  /* Stato "in parte" (si imposta solo da JS: checkbox.indeterminate = true) */
+  &:indeterminate {
+    @apply border-primary bg-primary;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round'%3E%3Cpath d='M3 6h6'/%3E%3C/svg%3E");
+  }
+
+  &:focus-visible {
+    @apply outline-2 outline-offset-2 outline-on-dark-mute;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed;
+  }
+  &:disabled:not(:checked, :indeterminate) {
+    @apply border-hairline;
+  }
+  &:disabled:is(:checked, :indeterminate) {
+    @apply opacity-40;
+  }
+}
+
+/* ---- select: <select class="kaamos-select"> ----
+   Stesso aspetto del text-input, con una freccia a destra. */
+@utility kaamos-select {
+  @apply block h-9 w-full cursor-pointer appearance-none rounded-md border border-hairline bg-surface-elevated py-1 pr-9 pl-3 font-sans text-body-md text-on-dark outline-none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%239c9c9d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+
+  &:focus-visible {
+    @apply border-hairline-strong;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed text-ash;
+  }
+
+  /* Miglioramento progressivo: i browser che supportano il "customizable
+     select" (per ora Chromium) ci lasciano stilare anche la lista che si apre.
+     Gli altri ignorano questo blocco e mostrano la lista del sistema. */
+  @supports (appearance: base-select) {
+    &,
+    &::picker(select) {
+      appearance: base-select;
+    }
+
+    /* La nostra freccia è già nel background: nascondiamo quella del browser. */
+    &::picker-icon {
+      display: none;
+    }
+
+    &::picker(select) {
+      @apply mt-1 rounded-md border border-hairline bg-surface p-1 text-on-dark;
+    }
+
+    & option {
+      @apply cursor-pointer rounded-sm px-2.5 py-1.5 text-body-md;
+    }
+    & option:is(:hover, :focus-visible) {
+      @apply bg-surface-elevated outline-none;
+    }
+    & option:checked {
+      @apply text-on-dark;
+    }
+    & option::checkmark {
+      @apply text-mute;
+    }
+  }
+}
+
+/* ---- slider: <input type="range" class="kaamos-range"> ----
+   Ogni motore ha i suoi pseudo-elementi: -webkit- (Chrome, Safari) e
+   -moz- (Firefox). Vanno scritti in regole separate: se un browser non
+   riconosce un selettore in una lista, scarta tutta la regola. */
+@utility kaamos-range {
+  @apply h-5 w-full cursor-pointer appearance-none bg-transparent;
+
+  &::-webkit-slider-runnable-track {
+    @apply h-1 rounded-full bg-hairline-strong;
+  }
+  &::-moz-range-track {
+    @apply h-1 rounded-full bg-hairline-strong;
+  }
+
+  &::-webkit-slider-thumb {
+    @apply -mt-1.5 size-4 appearance-none rounded-full border-0 bg-primary;
+  }
+  &::-moz-range-thumb {
+    @apply size-4 rounded-full border-0 bg-primary;
+  }
+
+  &:focus-visible {
+    @apply outline-none;
+  }
+  &:focus-visible::-webkit-slider-thumb {
+    @apply outline-2 outline-offset-2 outline-on-dark-mute;
+  }
+  &:focus-visible::-moz-range-thumb {
+    @apply outline-2 outline-offset-2 outline-on-dark-mute;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed opacity-40;
+  }
+}
