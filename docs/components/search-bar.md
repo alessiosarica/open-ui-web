@@ -26,4 +26,4 @@ Non mettere la search bar dentro una `<label>`: il componente usa già una label
 
 ## Proprietà ed eventi
 
-Come il [text input](text-input.md): `value`, `focus()`, `input` (il campo nativo) ed eventi `input`/`change`.
+Come il [text input](text-input.md): `value`, `disabled`, `required`, `readOnly`, `focus()`, `input` (il campo nativo), eventi `input`/`change`/`blur`. Con Angular usa `ngDefaultControl` (vedi [text input](text-input.md#angular)).

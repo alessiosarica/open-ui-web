@@ -37,3 +37,16 @@ describe("kaamos-search-bar", () => {
     expect(new FormData(document.querySelector("form")!).get("q")).toBe("flutter");
   });
 });
+
+describe("kaamos-search-bar con i form di Angular (ngDefaultControl)", () => {
+  it("riemette blur e accetta la proprietà disabled", () => {
+    document.body.innerHTML = `<kaamos-search-bar></kaamos-search-bar>`;
+    const el = document.querySelector("kaamos-search-bar")!;
+    let blurred = false;
+    el.addEventListener("blur", () => (blurred = true));
+    el.input!.dispatchEvent(new FocusEvent("blur"));
+    expect(blurred).toBe(true);
+    el.disabled = true;
+    expect(el.input!.disabled).toBe(true);
+  });
+});

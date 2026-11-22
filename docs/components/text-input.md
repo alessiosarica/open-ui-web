@@ -40,3 +40,23 @@ el.addEventListener("input", (e) => console.log(e.target.value)); // gli eventi 
 ## Stile
 
 Altezza 36px, sfondo `surface-elevated`, bordo `hairline`. Al focus il bordo diventa `hairline-strong`: una leggera schiarita, non un anello colorato.
+
+## Angular
+
+Aggiungi `ngDefaultControl` al tag: Angular userà il suo adattatore standard per i campi di testo.
+
+```html
+<kaamos-text-input name="email" ngDefaultControl [(ngModel)]="email"></kaamos-text-input>
+<kaamos-text-input formControlName="nome" ngDefaultControl></kaamos-text-input>
+```
+
+Perché funziona tutto:
+
+| Cosa fa Angular                               | Come lo gestisce il componente                                              |
+| --------------------------------------------- | --------------------------------------------------------------------------- |
+| Scrive il valore: `tag.value = ...`           | setter `value`                                                              |
+| Ascolta `input` sul tag                       | l'evento del campo interno risale al tag (light DOM)                        |
+| Ascolta `blur` sul tag per lo stato "touched" | `blur` non risale, quindi il componente lo riemette sul tag                 |
+| `form.disable()` fa `tag.disabled = true`     | proprietà `disabled` (e `required`, `readOnly`) che riflette sull'attributo |
+
+Lo stesso vale per [`kaamos-search-bar`](search-bar.md).

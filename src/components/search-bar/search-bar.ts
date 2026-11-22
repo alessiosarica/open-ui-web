@@ -69,6 +69,7 @@ export class KaamosSearchBar extends HTMLElement {
     if (!this.#input) {
       this.innerHTML = TEMPLATE;
       this.#input = this.querySelector("input");
+      this.#input?.addEventListener("blur", this.#forwardBlur);
       if (this.#input) this.#input.value = this.getAttribute("value") ?? "";
     }
     this.#render();
@@ -93,9 +94,45 @@ export class KaamosSearchBar extends HTMLElement {
     else this.setAttribute("value", value);
   }
 
+  /*
+   * disabled, required e readonly anche come PROPRIETÀ JavaScript, non solo
+   * come attributi: Angular (form.disable()) e molte librerie fanno
+   * el.disabled = true. La proprietà "riflette" sull'attributo, così c'è una
+   * sola fonte di verità e anche il CSS [disabled] resta coerente.
+   */
+  get disabled(): boolean {
+    return this.hasAttribute("disabled");
+  }
+  set disabled(value: boolean) {
+    this.toggleAttribute("disabled", value);
+  }
+
+  get required(): boolean {
+    return this.hasAttribute("required");
+  }
+  set required(value: boolean) {
+    this.toggleAttribute("required", value);
+  }
+
+  get readOnly(): boolean {
+    return this.hasAttribute("readonly");
+  }
+  set readOnly(value: boolean) {
+    this.toggleAttribute("readonly", value);
+  }
+
   override focus(options?: FocusOptions): void {
     this.#input?.focus(options);
   }
+
+  /**
+   * "blur" non risale dal campo interno al nostro tag (bubbles: false),
+   * quindi chi ascolta blur sul tag (es. Angular per lo stato "touched")
+   * non lo sentirebbe mai. Lo riemettiamo noi sul tag, uguale al nativo.
+   */
+  #forwardBlur = (): void => {
+    this.dispatchEvent(new FocusEvent("blur"));
+  };
 
   #render(): void {
     const input = this.#input;
