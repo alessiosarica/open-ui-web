@@ -1,4 +1,4 @@
-# Documentazione di @kaamos/webcomponents
+# Documentazione di @kaamos/open-ui-web
 
 Il design system Kaamos è fatto di due tipi di componenti:
 
@@ -13,14 +13,14 @@ Le specifiche visive (colori, tipografia, misure) sono in [`DESIGN.md`](DESIGN.m
 ## Installazione
 
 ```bash
-npm install @kaamos/webcomponents
+npm install @kaamos/open-ui-web
 ```
 
 ### Progetto senza Tailwind
 
 ```js
-import "@kaamos/webcomponents"; // registra i web components
-import "@kaamos/webcomponents/kaamos.css"; // font, token, reset, componenti e classi statiche
+import "@kaamos/open-ui-web"; // registra i web components
+import "@kaamos/open-ui-web/kaamos.css"; // font, token, reset, componenti e classi statiche
 ```
 
 `kaamos.css` include anche il reset di Tailwind (preflight), che normalizza margini, font e controlli dei form su tutta la pagina.
@@ -31,12 +31,12 @@ Riusi i token come classi (`bg-canvas`, `text-body-md`, `rounded-md`...) nel tuo
 
 ```css
 @import "tailwindcss";
-@import "@kaamos/webcomponents/fonts.css";
-@import "@kaamos/webcomponents/theme.css";
-@import "@kaamos/webcomponents/utilities.css";
+@import "@kaamos/open-ui-web/fonts.css";
+@import "@kaamos/open-ui-web/theme.css";
+@import "@kaamos/open-ui-web/utilities.css";
 
 /* Tailwind deve leggere le classi usate dentro i web components */
-@source "../node_modules/@kaamos/webcomponents/dist";
+@source "../node_modules/@kaamos/open-ui-web/dist";
 ```
 
 ### Angular

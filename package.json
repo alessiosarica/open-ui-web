@@ -1,5 +1,5 @@
 {
-  "name": "@kaamos/webcomponents",
+  "name": "@kaamos/open-ui-web",
   "version": "0.1.0",
   "description": "Kaamos design system: Web Components in light DOM, styled with Tailwind CSS.",
   "license": "GPL-3.0-only",
@@ -25,6 +25,9 @@
     "./fonts.css": "./dist/styles/fonts.css",
     "./utilities.css": "./dist/styles/utilities.css",
     "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "dev": "vp dev",

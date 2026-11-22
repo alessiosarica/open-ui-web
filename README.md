@@ -1,4 +1,4 @@
-# @kaamos/webcomponents
+# @kaamos/open-ui-web
 
 Libreria di Web Components del design system **Kaamos** (open tools FOSS).
 Light DOM, stile con Tailwind CSS v4, font Inter servito in locale. Le specifiche

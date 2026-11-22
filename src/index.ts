@@ -1,8 +1,8 @@
 /**
- * @kaamos/webcomponents
+ * @kaamos/open-ui-web
  *
  * Importare questo modulo registra tutti i custom element.
- * Lo stile arriva dal CSS: importa "@kaamos/webcomponents/kaamos.css".
+ * Lo stile arriva dal CSS: importa "@kaamos/open-ui-web/kaamos.css".
  */
 import { KaamosButton } from "./components/button/button.ts";
 import { KaamosCommandPalette } from "./components/command-palette/command-palette.ts";
