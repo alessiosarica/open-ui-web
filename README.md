@@ -10,7 +10,7 @@ di design sono in [`docs/DESIGN.md`](docs/DESIGN.md).
 | ------------------- | --------------------------------------------------------------------------- |
 | `kaamos-button`     | `variant="primary \| secondary \| tertiary \| install"`, `disabled`, `type` |
 | `kaamos-text-input` | `name`, `type`, `placeholder`, `value`, `required`, `disabled`, ...         |
-| `kaamos-search-bar` | da implementare                                                             |
+| `kaamos-search-bar` | `name`, `placeholder`, `value`, `aria-label`, `disabled`, ...               |
 
 ## Uso
 

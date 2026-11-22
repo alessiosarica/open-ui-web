@@ -78,10 +78,12 @@
 
       <section class="flex flex-col gap-4">
         <h2 class="text-heading-md text-ink">Search bar</h2>
-        <p class="text-body-sm text-mute">
-          Da implementare: vedi <code>src/components/search-bar/search-bar.ts</code>.
-        </p>
-        <!-- <kaamos-search-bar name="q" placeholder="Search..."></kaamos-search-bar> -->
+        <kaamos-search-bar name="q" placeholder="Search..." aria-label="Cerca"></kaamos-search-bar>
+        <kaamos-search-bar
+          placeholder="Search..."
+          aria-label="Cerca (disabilitato)"
+          disabled
+        ></kaamos-search-bar>
       </section>
     </main>
 
