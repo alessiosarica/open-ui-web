@@ -77,6 +77,56 @@
       </section>
 
       <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Classi statiche</h2>
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="kaamos-badge-pro">Pro</span>
+          <span class="kaamos-badge-pro">Free</span>
+          <span class="kaamos-badge-info">Beta</span>
+          <span class="text-body-sm text-mute">Apri la palette con</span>
+          <kbd class="kaamos-keycap">⌘</kbd>
+          <kbd class="kaamos-keycap">K</kbd>
+          <kbd class="kaamos-keycap">Esc</kbd>
+        </div>
+        <div class="flex items-end gap-3">
+          <span class="kaamos-app-icon-tile text-accent-yellow">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <rect
+                x="12"
+                y="15"
+                width="24"
+                height="18"
+                rx="3"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path d="M13 17l11 8 11-8" fill="none" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </span>
+          <span class="kaamos-app-icon-tile-lg text-accent-green">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <path
+                d="M18 40a8 8 0 0 1 1-16 11 11 0 0 1 21-3 9 9 0 0 1 6 19z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              />
+            </svg>
+          </span>
+        </div>
+        <div
+          id="demo-pills"
+          role="group"
+          aria-label="Filtra estensioni"
+          class="flex flex-wrap gap-1"
+        >
+          <button class="kaamos-pill-tab" aria-pressed="true">All</button>
+          <button class="kaamos-pill-tab" aria-pressed="false">Recently Added</button>
+          <button class="kaamos-pill-tab" aria-pressed="false">Most Popular</button>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
         <h2 class="text-heading-md text-ink">Search bar</h2>
         <kaamos-search-bar name="q" placeholder="Search..." aria-label="Cerca"></kaamos-search-bar>
         <kaamos-search-bar
@@ -94,6 +144,15 @@
         event.preventDefault();
         const data = Object.fromEntries(new FormData(form));
         document.getElementById("demo-output").textContent = JSON.stringify(data);
+      });
+      // Pill tab: un solo filtro attivo alla volta, lo stato vive in aria-pressed.
+      const pills = document.getElementById("demo-pills");
+      pills.addEventListener("click", (event) => {
+        const pill = event.target.closest(".kaamos-pill-tab");
+        if (!pill) return;
+        for (const other of pills.querySelectorAll(".kaamos-pill-tab")) {
+          other.setAttribute("aria-pressed", String(other === pill));
+        }
       });
     </script>
   </body>

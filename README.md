@@ -4,34 +4,16 @@ Libreria di Web Components del design system **Kaamos** (open tools FOSS).
 Light DOM, stile con Tailwind CSS v4, font Inter servito in locale. Le specifiche
 di design sono in [`docs/DESIGN.md`](docs/DESIGN.md).
 
-## Componenti
+## Documentazione
 
-| Tag                 | Varianti / attributi                                                        |
-| ------------------- | --------------------------------------------------------------------------- |
-| `kaamos-button`     | `variant="primary \| secondary \| tertiary \| install"`, `disabled`, `type` |
-| `kaamos-text-input` | `name`, `type`, `placeholder`, `value`, `required`, `disabled`, ...         |
-| `kaamos-search-bar` | `name`, `placeholder`, `value`, `aria-label`, `disabled`, ...               |
+Guida completa all'uso, componente per componente: [`docs/README.md`](docs/README.md).
 
-## Uso
-
-Senza Tailwind nel tuo progetto:
-
-```js
-import "@kaamos/webcomponents";
-import "@kaamos/webcomponents/kaamos.css";
-```
-
-Con Tailwind v4 nel tuo progetto (riusi i token e le classi):
-
-```css
-@import "tailwindcss";
-@import "@kaamos/webcomponents/fonts.css";
-@import "@kaamos/webcomponents/theme.css";
-/* Tailwind deve vedere le classi usate dentro i componenti */
-@source "../node_modules/@kaamos/webcomponents/dist";
-```
-
-In Angular aggiungi `CUSTOM_ELEMENTS_SCHEMA` ai componenti che usano i tag `kaamos-*`.
+| Componente                             | Tipo          | Uso                                 |
+| -------------------------------------- | ------------- | ----------------------------------- |
+| Button                                 | web component | `<kaamos-button variant="primary">` |
+| Text input                             | web component | `<kaamos-text-input name="email">`  |
+| Search bar                             | web component | `<kaamos-search-bar name="q">`      |
+| Badge, keycap, app icon tile, pill tab | classi CSS    | `class="kaamos-badge-pro"`          |
 
 ## Sviluppo (Vite+)
 

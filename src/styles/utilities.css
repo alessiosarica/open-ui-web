@@ -1,0 +1,67 @@
+/*
+ * Componenti STATICI del design system: solo stile, nessun comportamento.
+ * Sono classi Tailwind (@utility) invece di web components, così non serve
+ * JavaScript: un badge non deve "girare", deve solo avere dei colori.
+ *
+ * @utility crea una classe che funziona come quelle di Tailwind:
+ *   - supporta le varianti (hover:kaamos-badge-pro, md:kaamos-keycap...)
+ *   - finisce nel CSS solo se qualcuno la usa (vedi @source inline in kaamos.css)
+ *
+ * @apply riusa le classi dei token, così i valori restano quelli di theme.css.
+ * Documentazione: docs/components/static.md
+ */
+
+/* ---- badge-pro: etichetta di piano ("Pro", "Free") ---- */
+@utility kaamos-badge-pro {
+  @apply inline-flex items-center rounded-xs bg-surface-elevated px-1.5 py-0.5 font-sans text-caption-sm text-on-dark-mute;
+}
+
+/* ---- badge-info-soft: etichetta rara "New" / "Beta" ---- */
+@utility kaamos-badge-info {
+  @apply inline-flex items-center rounded-xs bg-accent-blue-soft px-2 py-0.5 font-sans text-caption-sm text-accent-blue;
+}
+
+/* ---- keycap: scorciatoia da tastiera (⌘ K, Esc) ----
+   Da usare su <kbd>. Il preflight di Tailwind dà a <kbd> il font monospace:
+   qui lo riportiamo a Inter, come da DESIGN.md. */
+@utility kaamos-keycap {
+  @apply inline-flex h-5 min-w-5 items-center justify-center rounded-xs px-1.5 py-px font-sans text-caption-md text-body;
+  background-color: var(--color-surface-card);
+  background-image: linear-gradient(to bottom, var(--color-key-bg-start), var(--color-key-bg-end));
+}
+
+/* ---- app-icon-tile: riquadro per l'icona di un'app/integrazione ---- */
+@utility kaamos-app-icon-tile {
+  @apply inline-flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-md bg-surface-card;
+
+  /* L'icona riempie il riquadro (padding 0 nel DESIGN.md). */
+  & > :is(img, svg) {
+    @apply size-full object-cover;
+  }
+}
+
+@utility kaamos-app-icon-tile-lg {
+  @apply kaamos-app-icon-tile size-16;
+}
+
+/* ---- pill-tab: chip di filtro ("All", "Most Popular") ----
+   Da usare su <button>. Lo stato attivo NON è una classe ma un attributo ARIA:
+   così lo stile e l'accessibilità non possono andare fuori sincrono.
+   - filtri che si accendono/spengono: aria-pressed="true"
+   - dentro un tablist (lotto 4): aria-selected="true" */
+@utility kaamos-pill-tab {
+  @apply inline-flex cursor-pointer items-center rounded-full bg-transparent px-2.5 py-1 font-sans text-body-sm whitespace-nowrap text-body;
+
+  &:focus-visible {
+    @apply outline-2 outline-offset-2 outline-on-dark-mute;
+  }
+
+  &[aria-pressed="true"],
+  &[aria-selected="true"] {
+    @apply bg-surface-elevated text-on-dark;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed text-ash;
+  }
+}
