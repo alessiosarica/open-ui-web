@@ -8,6 +8,7 @@ import { KaamosButton } from "./components/button/button.ts";
 import { KaamosCommandPalette } from "./components/command-palette/command-palette.ts";
 import { KaamosMenu } from "./components/menu/menu.ts";
 import { KaamosSearchBar } from "./components/search-bar/search-bar.ts";
+import { KaamosSelect } from "./components/select/select.ts";
 import { KaamosTabs } from "./components/tabs/tabs.ts";
 import { KaamosTextInput } from "./components/text-input/text-input.ts";
 
@@ -16,6 +17,7 @@ export {
   KaamosCommandPalette,
   KaamosMenu,
   KaamosSearchBar,
+  KaamosSelect,
   KaamosTabs,
   KaamosTextInput,
 };
@@ -32,3 +34,4 @@ define("kaamos-search-bar", KaamosSearchBar);
 define("kaamos-menu", KaamosMenu);
 define("kaamos-tabs", KaamosTabs);
 define("kaamos-command-palette", KaamosCommandPalette);
+define("kaamos-select", KaamosSelect);

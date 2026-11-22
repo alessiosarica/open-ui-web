@@ -68,7 +68,7 @@
 
 /* =====================================================================
  * Controlli dei form: elementi NATIVI con lo stile di Kaamos.
- * Restano <input> e <select> veri, quindi funzionano con form, tastiera,
+ * Restano <input> veri, quindi funzionano con form, tastiera,
  * screen reader e con i form di Angular (ngModel, reactive forms) senza
  * adattatori. appearance: none toglie lo stile del sistema operativo.
  * ===================================================================== */
@@ -109,54 +109,68 @@
   }
 }
 
-/* ---- select: <select class="kaamos-select"> ----
-   Stesso aspetto del text-input, con una freccia a destra. */
-@utility kaamos-select {
-  @apply block h-9 w-full cursor-pointer appearance-none rounded-md border border-hairline bg-surface-elevated py-1 pr-9 pl-3 font-sans text-body-md text-on-dark outline-none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%239c9c9d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
-  background-position: right 12px center;
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
+/* ---- select: stile del web component <kaamos-select> ----
+   La lista nativa di <select> non si può stilare allo stesso modo in tutti i
+   browser, quindi <kaamos-select> disegna la sua (vedi select.ts).
+   Qui ci sono solo le classi che il componente applica. */
 
-  &:focus-visible {
+/* Il campo chiuso: stesso aspetto del text-input, con freccia a destra. */
+@utility kaamos-select-trigger {
+  @apply flex h-9 w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-hairline bg-surface-elevated px-3 text-left font-sans text-body-md text-on-dark outline-none;
+
+  &:focus-visible,
+  &[aria-expanded="true"] {
     @apply border-hairline-strong;
+  }
+
+  &[aria-invalid="true"] {
+    @apply border-accent-red;
   }
 
   &:disabled {
     @apply cursor-not-allowed text-ash;
   }
 
-  /* Miglioramento progressivo: i browser che supportano il "customizable
-     select" (per ora Chromium) ci lasciano stilare anche la lista che si apre.
-     Gli altri ignorano questo blocco e mostrano la lista del sistema. */
-  @supports (appearance: base-select) {
-    &,
-    &::picker(select) {
-      appearance: base-select;
-    }
-
-    /* La nostra freccia è già nel background: nascondiamo quella del browser. */
-    &::picker-icon {
-      display: none;
-    }
-
-    &::picker(select) {
-      @apply mt-1 rounded-md border border-hairline bg-surface p-1 text-on-dark;
-    }
-
-    & option {
-      @apply cursor-pointer rounded-sm px-2.5 py-1.5 text-body-md;
-    }
-    & option:is(:hover, :focus-visible) {
-      @apply bg-surface-elevated outline-none;
-    }
-    & option:checked {
-      @apply text-on-dark;
-    }
-    & option::checkmark {
-      @apply text-mute;
-    }
+  & > svg {
+    @apply size-4 shrink-0 text-mute;
   }
+}
+
+/* La lista che si apre (un popover ancorato al campo). */
+@utility kaamos-select-list {
+  @apply kaamos-popover-surface max-h-72 overflow-y-auto p-1;
+
+  @supports (position-area: block-end) {
+    /* Larga almeno quanto il campo. */
+    min-width: anchor-size(width);
+    position-try-fallbacks: flip-block;
+  }
+}
+
+@utility kaamos-select-option {
+  @apply flex cursor-pointer items-center justify-between gap-3 rounded-sm px-2.5 py-1.5 font-sans text-body-md text-on-dark;
+
+  /* L'opzione "attiva" (dove sei con le frecce) è indicata da data-active:
+     il focus vero resta sul campo, come nel pattern ARIA combobox. */
+  &[data-active] {
+    @apply bg-surface-card;
+  }
+
+  &[aria-disabled="true"] {
+    @apply cursor-not-allowed text-ash;
+  }
+
+  /* La spunta accanto all'opzione selezionata. */
+  & > svg {
+    @apply invisible size-4 shrink-0 text-mute;
+  }
+  &[aria-selected="true"] > svg {
+    @apply visible;
+  }
+}
+
+@utility kaamos-select-group {
+  @apply px-2.5 pt-2 pb-1 font-sans text-caption-sm text-mute;
 }
 
 /* ---- slider: <input type="range" class="kaamos-range"> ----

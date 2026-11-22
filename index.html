@@ -240,12 +240,22 @@
 
           <label class="mt-3 flex flex-col gap-2 text-body-sm-strong text-charcoal">
             Lingua
-            <select class="kaamos-select" name="lingua">
-              <option value="it">Italiano</option>
-              <option value="en">English</option>
-              <option value="fi">Suomi</option>
-              <option value="sv">Svenska</option>
-            </select>
+            <kaamos-select>
+              <select name="lingua" required>
+                <option value="" hidden>Scegli una lingua</option>
+                <optgroup label="Europa del sud">
+                  <option value="it">Italiano</option>
+                  <option value="es">Español</option>
+                </optgroup>
+                <optgroup label="Paesi nordici">
+                  <option value="fi">Suomi</option>
+                  <option value="sv">Svenska</option>
+                  <option value="no">Norsk</option>
+                  <option value="is" disabled>Íslenska (presto)</option>
+                </optgroup>
+                <option value="en">English</option>
+              </select>
+            </kaamos-select>
           </label>
 
           <label class="mt-3 flex flex-col gap-2 text-body-sm-strong text-charcoal">
