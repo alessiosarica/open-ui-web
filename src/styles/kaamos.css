@@ -30,7 +30,8 @@
     display: inline-flex;
   }
   kaamos-text-input,
-  kaamos-search-bar {
+  kaamos-search-bar,
+  kaamos-tabs {
     display: block;
   }
   /* kaamos-menu NON va qui: è un popover, il browser lo nasconde da solo
@@ -40,7 +41,8 @@
      senza stile per un attimo (FOUC): lo nascondiamo finché non è :defined. */
   kaamos-button:not(:defined),
   kaamos-text-input:not(:defined),
-  kaamos-search-bar:not(:defined) {
+  kaamos-search-bar:not(:defined),
+  kaamos-tabs:not(:defined) {
     visibility: hidden;
   }
   /* Senza JS il menu non diventa un popover: meglio non mostrarlo affatto. */
