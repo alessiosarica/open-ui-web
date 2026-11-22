@@ -1,0 +1,38 @@
+/*
+ * Punto d'ingresso del CSS compilato (dist/styles/kaamos.css).
+ * Chi usa la libreria SENZA Tailwind importa solo questo file.
+ *
+ * source(none): non scansionare tutto il progetto, ma solo i componenti.
+ * Così nel CSS pubblicato finiscono solo le classi che i componenti usano davvero.
+ */
+@import "tailwindcss" source(none);
+@import "./fonts.css";
+@import "./theme.css";
+
+@source "../components";
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background-color: var(--color-canvas);
+    color: var(--color-body);
+  }
+
+  /* Gli elementi sconosciuti sono "inline" di default: diamo ai componenti
+     il display giusto per il loro ruolo. */
+  kaamos-button {
+    display: inline-flex;
+  }
+  kaamos-text-input,
+  kaamos-search-bar {
+    display: block;
+  }
+
+  /* Prima che il JS registri il componente, il testo dei figli sarebbe visibile
+     senza stile per un attimo (FOUC): lo nascondiamo finché non è :defined. */
+  kaamos-button:not(:defined),
+  kaamos-text-input:not(:defined),
+  kaamos-search-bar:not(:defined) {
+    visibility: hidden;
+  }
+}

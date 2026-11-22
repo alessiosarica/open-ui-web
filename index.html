@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kaamos · Web Components</title>
+    <!-- Preload del font: il browser lo scarica subito invece di aspettare il CSS. -->
+    <link
+      rel="preload"
+      href="/src/fonts/InterVariable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/demo/demo.css" />
+    <script type="module" src="/src/index.ts"></script>
+  </head>
+  <body class="min-h-screen bg-canvas text-body font-sans">
+    <main class="mx-auto max-w-3xl px-6 py-section flex flex-col gap-16">
+      <header class="flex flex-col gap-2">
+        <h1 class="text-display-lg text-ink">Kaamos</h1>
+        <p class="text-body-lg text-mute">
+          Web Components in light DOM, stile con Tailwind CSS. La g di "design" usa ss03.
+        </p>
+      </header>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Bottoni</h2>
+        <div class="flex flex-wrap items-center gap-3">
+          <kaamos-button variant="primary">Download</kaamos-button>
+          <kaamos-button variant="secondary">Learn more →</kaamos-button>
+          <kaamos-button variant="tertiary">Watch demo</kaamos-button>
+          <kaamos-button variant="install">Install</kaamos-button>
+        </div>
+        <h3 class="text-body-sm-strong text-mute">Disabled</h3>
+        <div class="flex flex-wrap items-center gap-3">
+          <kaamos-button variant="primary" disabled>Download</kaamos-button>
+          <kaamos-button variant="secondary" disabled>Learn more →</kaamos-button>
+          <kaamos-button variant="tertiary" disabled>Watch demo</kaamos-button>
+          <kaamos-button variant="install" disabled>Install</kaamos-button>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Input</h2>
+        <form
+          id="demo-form"
+          class="flex flex-col gap-4 rounded-lg border border-hairline bg-surface p-6"
+        >
+          <label class="flex flex-col gap-2 text-body-sm-strong text-charcoal">
+            Nome
+            <kaamos-text-input name="nome" placeholder="Il tuo nome" required></kaamos-text-input>
+          </label>
+          <label class="flex flex-col gap-2 text-body-sm-strong text-charcoal">
+            Email
+            <kaamos-text-input
+              name="email"
+              type="email"
+              placeholder="tu@esempio.org"
+              autocomplete="email"
+            ></kaamos-text-input>
+          </label>
+          <label class="flex flex-col gap-2 text-body-sm-strong text-charcoal">
+            Disabilitato
+            <kaamos-text-input
+              name="bloccato"
+              value="Non modificabile"
+              disabled
+            ></kaamos-text-input>
+          </label>
+          <div class="flex gap-3">
+            <kaamos-button variant="primary" type="submit">Invia</kaamos-button>
+            <kaamos-button variant="tertiary" type="reset">Reset</kaamos-button>
+          </div>
+          <output id="demo-output" class="text-caption-md text-mute"></output>
+        </form>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Search bar</h2>
+        <p class="text-body-sm text-mute">
+          Da implementare: vedi <code>src/components/search-bar/search-bar.ts</code>.
+        </p>
+        <!-- <kaamos-search-bar name="q" placeholder="Search..."></kaamos-search-bar> -->
+      </section>
+    </main>
+
+    <script type="module">
+      // Mostra cosa riceve il form: prova che gli input in light DOM partecipano al form.
+      const form = document.getElementById("demo-form");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const data = Object.fromEntries(new FormData(form));
+        document.getElementById("demo-output").textContent = JSON.stringify(data);
+      });
+    </script>
+  </body>
+</html>

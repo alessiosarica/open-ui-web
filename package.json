@@ -1,0 +1,42 @@
+{
+  "name": "@kaamos/webcomponents",
+  "version": "0.1.0",
+  "description": "Kaamos design system: Web Components in light DOM, styled with Tailwind CSS.",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alessiosarica/open-ui-web.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "./dist/index.mjs",
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./kaamos.css": "./dist/styles/kaamos.css",
+    "./theme.css": "./dist/styles/theme.css",
+    "./fonts.css": "./dist/styles/fonts.css",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "dev": "vp dev",
+    "build": "vp run build:lib",
+    "check": "vp check",
+    "test": "vp test"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.5",
+    "@tailwindcss/vite": "4.3.5",
+    "happy-dom": "21.0.4",
+    "tailwindcss": "4.3.5",
+    "typescript": "7.0.2",
+    "vite-plus": "1.7.0"
+  }
+}
