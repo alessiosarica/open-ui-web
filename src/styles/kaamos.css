@@ -15,7 +15,7 @@
 /* Le classi statiche (@utility) non sono usate dentro i componenti, quindi
    Tailwind non le troverebbe. @source inline le aggiunge comunque al CSS
    compilato, così chi usa kaamos.css senza Tailwind le ha a disposizione. */
-@source inline("kaamos-badge-pro kaamos-badge-info kaamos-keycap kaamos-app-icon-tile kaamos-app-icon-tile-lg kaamos-pill-tab kaamos-checkbox kaamos-select kaamos-range kaamos-dialog kaamos-popover kaamos-menu kaamos-menu-item kaamos-menu-separator");
+@source inline("kaamos-badge-pro kaamos-badge-info kaamos-keycap kaamos-app-icon-tile kaamos-app-icon-tile-lg kaamos-pill-tab kaamos-checkbox kaamos-select kaamos-range kaamos-dialog kaamos-popover kaamos-menu kaamos-menu-item kaamos-menu-separator kaamos-card kaamos-card-elevated kaamos-card-compact kaamos-command-palette kaamos-command-row kaamos-nav kaamos-nav-brand kaamos-nav-toggle kaamos-nav-links kaamos-nav-link kaamos-nav-secondary");
 
 @layer base {
   html {
@@ -46,7 +46,8 @@
     visibility: hidden;
   }
   /* Senza JS il menu non diventa un popover: meglio non mostrarlo affatto. */
-  kaamos-menu:not(:defined, [popover]) {
+  kaamos-menu:not(:defined, [popover]),
+  kaamos-command-palette:not(:defined) {
     display: none;
   }
 }

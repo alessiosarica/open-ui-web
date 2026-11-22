@@ -264,3 +264,135 @@
 @utility kaamos-menu-separator {
   @apply mx-1 my-1 h-px border-0 bg-hairline;
 }
+
+/* =====================================================================
+ * Contenitori: card, command palette, navigazione principale.
+ * ===================================================================== */
+
+/* ---- card ----
+   Una sola famiglia di card, invece di una classe per ogni uso:
+     kaamos-card          = feature-card-dark e pricing-tier-card
+     kaamos-card-elevated = feature-card-elevated e pricing-tier-card-featured
+     kaamos-card-compact  = store-extension-card
+   Il DESIGN.md stesso dice che queste card hanno "la stessa cornice":
+   cambia solo il contenuto, che costruisci con le classi dei token. */
+@utility kaamos-card {
+  @apply rounded-lg border border-hairline bg-surface p-6 font-sans text-body-md text-on-dark;
+}
+
+@utility kaamos-card-elevated {
+  @apply kaamos-card bg-surface-elevated;
+}
+
+@utility kaamos-card-compact {
+  @apply flex items-center gap-4 rounded-md border border-hairline bg-surface p-4 font-sans text-body-md text-on-dark;
+}
+
+/* ---- command palette (stile del web component <kaamos-command-palette>) ---- */
+@utility kaamos-command-palette {
+  @apply mx-auto mt-[15vh] mb-auto w-[calc(100%-2rem)] max-w-xl overflow-hidden rounded-xl border border-hairline bg-surface p-0 font-sans text-body-md text-on-dark;
+
+  &::backdrop {
+    @apply bg-canvas/70;
+  }
+}
+
+@utility kaamos-command-row {
+  @apply flex w-full cursor-pointer items-center gap-3 rounded-sm bg-transparent px-2.5 py-1.5 text-left font-sans text-body-md text-on-dark;
+
+  /* La riga attiva è indicata da aria-selected (pattern combobox/listbox). */
+  &[aria-selected="true"] {
+    @apply bg-surface-card;
+  }
+
+  & > .kaamos-keycap {
+    @apply ml-auto;
+  }
+
+  & > :is(.kaamos-app-icon-tile, svg) {
+    @apply size-6 rounded-sm;
+  }
+}
+
+/* ---- navigazione principale ----
+   Desktop: logo a sinistra, link al centro, azioni a destra (56px, bordo in basso).
+   Sotto 768px i link diventano un cassetto che entra da sinistra.
+   Il trucco: <nav popover>. Su mobile è un vero popover (si apre col bottone
+   hamburger, si chiude cliccando fuori o con Esc). Su desktop forziamo
+   display: flex, quindi è sempre visibile come una barra normale. Zero JS. */
+@utility kaamos-nav {
+  @apply sticky top-0 z-10 flex h-14 items-center gap-4 border-b border-hairline bg-canvas px-4 font-sans text-body-sm-strong text-on-dark md:gap-8 md:px-6;
+}
+
+@utility kaamos-nav-brand {
+  /* Su mobile il logo sta al centro, su desktop a sinistra. */
+  @apply flex-1 text-center text-body-strong text-ink md:flex-none md:text-left;
+}
+
+@utility kaamos-nav-toggle {
+  @apply inline-flex size-9 cursor-pointer items-center justify-center rounded-md text-on-dark md:hidden;
+
+  &:focus-visible {
+    @apply outline-2 outline-offset-2 outline-on-dark-mute;
+  }
+}
+
+@utility kaamos-nav-links {
+  /* Mobile: cassetto a sinistra, a tutta altezza. */
+  @apply fixed inset-y-0 right-auto left-0 m-0 h-full w-72 max-w-[85vw] flex-col gap-1 border-0 border-r border-hairline bg-canvas p-4 text-on-dark;
+  transition:
+    translate 200ms ease-out,
+    display 200ms allow-discrete,
+    overlay 200ms allow-discrete;
+  translate: -100% 0;
+
+  &:popover-open {
+    display: flex;
+    translate: 0 0;
+
+    /* Stato di partenza dell'animazione di apertura. */
+    @starting-style {
+      translate: -100% 0;
+    }
+  }
+
+  &::backdrop {
+    @apply bg-canvas/70;
+  }
+
+  @variant md {
+    /* Desktop: barra orizzontale, sempre visibile, al centro. */
+    position: static;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+    gap: 4px;
+    width: auto;
+    max-width: none;
+    height: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    translate: none;
+    transition: none;
+    overflow: visible;
+  }
+}
+
+@utility kaamos-nav-link {
+  @apply rounded-sm px-2.5 py-2 text-body-sm-strong text-on-dark-mute md:py-1.5;
+
+  &:is(:hover, [aria-current="page"]) {
+    @apply text-on-dark;
+  }
+
+  &:focus-visible {
+    @apply outline-2 outline-offset-2 outline-on-dark-mute;
+  }
+}
+
+/* Azioni che spariscono su mobile (es. "Accedi"); il CTA "Download" resta. */
+@utility kaamos-nav-secondary {
+  @apply max-md:hidden;
+}

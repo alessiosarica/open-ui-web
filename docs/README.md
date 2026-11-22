@@ -2,11 +2,11 @@
 
 Il design system Kaamos è fatto di due tipi di componenti:
 
-| Tipo                         | Quando                                 | Come si usa                          | Esempi                                     |
-| ---------------------------- | -------------------------------------- | ------------------------------------ | ------------------------------------------ |
-| **Web component**            | il componente ha comportamento o stato | un tag: `<kaamos-button>`            | button, text-input, search-bar, menu, tabs |
-| **Classe CSS statica**       | il componente è solo stile             | una classe su un elemento HTML       | badge, keycap, app-icon-tile, pill-tab     |
-| **Elemento nativo + classe** | il browser ha già il controllo giusto  | una classe su `<input>` o `<select>` | checkbox, select, slider                   |
+| Tipo                         | Quando                                 | Come si usa                          | Esempi                                                      |
+| ---------------------------- | -------------------------------------- | ------------------------------------ | ----------------------------------------------------------- |
+| **Web component**            | il componente ha comportamento o stato | un tag: `<kaamos-button>`            | button, text-input, search-bar, menu, tabs, command-palette |
+| **Classe CSS statica**       | il componente è solo stile             | una classe su un elemento HTML       | badge, keycap, app-icon-tile, pill-tab                      |
+| **Elemento nativo + classe** | il browser ha già il controllo giusto  | una classe su `<input>` o `<select>` | checkbox, select, slider                                    |
 
 Le specifiche visive (colori, tipografia, misure) sono in [`DESIGN.md`](DESIGN.md).
 
@@ -60,6 +60,8 @@ export class AppComponent {}
 - [Controlli dei form: checkbox, select, slider](components/form-controls.md)
 - [Overlay: dialog, popover, menu](components/overlays.md)
 - [Tab](components/tabs.md)
+- [Command palette](components/command-palette.md)
+- [Contenitori: card e navigazione principale](components/containers.md)
 - [Classi statiche: badge, keycap, app-icon-tile, pill-tab](components/static.md)
 
 ## Token

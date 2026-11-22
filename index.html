@@ -16,6 +16,33 @@
     <script type="module" src="/src/index.ts"></script>
   </head>
   <body class="min-h-screen bg-canvas text-body font-sans">
+    <header class="kaamos-nav">
+      <button class="kaamos-nav-toggle" popovertarget="demo-nav" aria-label="Apri il menu">
+        <svg
+          class="size-5"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M3 6h14M3 10h14M3 14h14" />
+        </svg>
+      </button>
+      <a class="kaamos-nav-brand" href="#">Kaamos</a>
+      <nav id="demo-nav" popover class="kaamos-nav-links" aria-label="Principale">
+        <a class="kaamos-nav-link" href="#" aria-current="page">Componenti</a>
+        <a class="kaamos-nav-link" href="#">Mail</a>
+        <a class="kaamos-nav-link" href="#">Drive</a>
+        <a class="kaamos-nav-link" href="#">Todo</a>
+        <a class="kaamos-nav-link" href="#">Docs</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a class="kaamos-nav-link kaamos-nav-secondary" href="#">Accedi</a>
+        <kaamos-button variant="primary">Download</kaamos-button>
+      </div>
+    </header>
     <main class="mx-auto max-w-3xl px-6 py-section flex flex-col gap-16">
       <header class="flex flex-col gap-2">
         <h1 class="text-display-lg text-ink">Kaamos</h1>
@@ -74,6 +101,68 @@
           </div>
           <output id="demo-output" class="text-caption-md text-mute"></output>
         </form>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Card</h2>
+        <div class="grid gap-4 md:grid-cols-2">
+          <article class="kaamos-card flex flex-col gap-3">
+            <h3 class="text-heading-sm text-ink">Kaamos Mail</h3>
+            <p class="text-body-sm text-mute">
+              Un client email libero, veloce e senza tracciamento.
+            </p>
+            <kaamos-button variant="secondary" class="self-start">Learn more →</kaamos-button>
+          </article>
+          <article class="kaamos-card-elevated flex flex-col gap-3">
+            <h3 class="text-heading-sm text-ink">Kaamos Drive</h3>
+            <p class="text-body-sm text-mute">File e foto sul tuo server, sincronizzati ovunque.</p>
+            <kaamos-button variant="tertiary" class="self-start">Watch demo</kaamos-button>
+          </article>
+        </div>
+        <article class="kaamos-card-compact">
+          <span class="kaamos-app-icon-tile text-accent-yellow">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <rect
+                x="12"
+                y="15"
+                width="24"
+                height="18"
+                rx="3"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path d="M13 17l11 8 11-8" fill="none" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </span>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-body-strong text-ink">
+              Mail Sorter <span class="kaamos-badge-info ml-1">Beta</span>
+            </h3>
+            <p class="text-caption-md text-mute">di Kaamos · Ordina la posta con regole locali</p>
+          </div>
+          <kaamos-button variant="install">Install</kaamos-button>
+        </article>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Command palette</h2>
+        <p class="text-body-sm text-mute">
+          Premi <kbd class="kaamos-keycap">⌘</kbd> <kbd class="kaamos-keycap">K</kbd> (o
+          <kbd class="kaamos-keycap">Ctrl</kbd> <kbd class="kaamos-keycap">K</kbd>) oppure il
+          bottone.
+        </p>
+        <div class="flex items-center gap-3">
+          <kaamos-button variant="tertiary" id="demo-palette-open">Apri la palette</kaamos-button>
+          <span id="demo-palette-output" class="text-caption-md text-mute"></span>
+        </div>
+        <kaamos-command-palette id="demo-palette" shortcut="k" placeholder="Cerca un comando...">
+          <button value="nuova-email">Nuova email <kbd class="kaamos-keycap">⌘ N</kbd></button>
+          <button value="cerca-posta">Cerca nella posta</button>
+          <button value="carica-file">Carica un file su Drive</button>
+          <button value="nuova-attivita">Nuova attività in Todo</button>
+          <button value="impostazioni">Impostazioni <kbd class="kaamos-keycap">⌘ ,</kbd></button>
+        </kaamos-command-palette>
       </section>
 
       <section class="flex flex-col gap-4">
@@ -235,6 +324,14 @@
         const data = Object.fromEntries(new FormData(form));
         document.getElementById("demo-output").textContent = JSON.stringify(data);
       });
+      // Command palette: apertura dal bottone e voce scelta.
+      const palette = document.getElementById("demo-palette");
+      document.getElementById("demo-palette-open").addEventListener("click", () => palette.show());
+      palette.addEventListener("kaamos-select", (event) => {
+        document.getElementById("demo-palette-output").textContent =
+          "Comando: " + event.detail.item.value;
+      });
+
       // Menu: l'evento kaamos-select dice quale voce è stata scelta.
       document.getElementById("demo-menu").addEventListener("kaamos-select", (event) => {
         document.getElementById("demo-menu-output").textContent =
