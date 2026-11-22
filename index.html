@@ -77,6 +77,43 @@
       </section>
 
       <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Overlay</h2>
+        <div class="flex flex-wrap items-center gap-3">
+          <kaamos-button variant="tertiary" commandfor="demo-dialog" command="show-modal">
+            Apri dialog
+          </kaamos-button>
+          <kaamos-button variant="tertiary" popovertarget="demo-popover">Info</kaamos-button>
+          <kaamos-button variant="tertiary" popovertarget="demo-menu">Azioni ▾</kaamos-button>
+          <span id="demo-menu-output" class="text-caption-md text-mute"></span>
+        </div>
+
+        <dialog id="demo-dialog" class="kaamos-dialog" aria-labelledby="demo-dialog-title">
+          <h3 id="demo-dialog-title" class="text-heading-md text-ink">Eliminare il file?</h3>
+          <p class="mt-2 text-body-sm text-mute">
+            Il file verrà spostato nel cestino. Potrai recuperarlo per 30 giorni.
+          </p>
+          <form method="dialog" class="mt-6 flex justify-end gap-3">
+            <kaamos-button variant="secondary" type="submit" value="annulla">Annulla</kaamos-button>
+            <kaamos-button variant="primary" type="submit" value="elimina">Elimina</kaamos-button>
+          </form>
+        </dialog>
+
+        <div id="demo-popover" popover class="kaamos-popover">
+          Kaamos è il nome finlandese della notte polare. I popover si chiudono cliccando fuori o
+          con
+          <kbd class="kaamos-keycap">Esc</kbd>.
+        </div>
+
+        <kaamos-menu id="demo-menu" popover aria-label="Azioni sul file">
+          <button>Rinomina</button>
+          <button>Duplica <kbd class="kaamos-keycap">⌘ D</kbd></button>
+          <button disabled>Sposta (non disponibile)</button>
+          <hr />
+          <button>Elimina</button>
+        </kaamos-menu>
+      </section>
+
+      <section class="flex flex-col gap-4">
         <h2 class="text-heading-md text-ink">Controlli dei form</h2>
         <div class="flex flex-col gap-3 rounded-lg border border-hairline bg-surface p-6">
           <label class="flex items-center gap-2 text-body-sm text-body">
@@ -182,6 +219,12 @@
         const data = Object.fromEntries(new FormData(form));
         document.getElementById("demo-output").textContent = JSON.stringify(data);
       });
+      // Menu: l'evento kaamos-select dice quale voce è stata scelta.
+      document.getElementById("demo-menu").addEventListener("kaamos-select", (event) => {
+        document.getElementById("demo-menu-output").textContent =
+          "Scelto: " + event.detail.item.firstChild.textContent.trim();
+      });
+
       // indeterminate esiste solo come proprietà JS, non come attributo HTML.
       document.getElementById("demo-indeterminate").indeterminate = true;
 

@@ -46,7 +46,20 @@ function isVariant(value: string | null): value is ButtonVariant {
 }
 
 /** Attributi che copiamo così come sono sul <button> interno. */
-const FORWARDED = ["type", "name", "value", "form", "aria-label", "aria-pressed"] as const;
+const FORWARDED = [
+  "type",
+  "name",
+  "value",
+  "form",
+  "aria-label",
+  "aria-pressed",
+  // Per aprire popover, menu e dialog senza JavaScript. Funziona solo perché
+  // siamo in light DOM: l'id indicato è nello stesso documento del <button>.
+  "popovertarget",
+  "popovertargetaction",
+  "commandfor",
+  "command",
+] as const;
 
 export class KaamosButton extends HTMLElement {
   static observedAttributes: string[] = ["variant", "disabled", ...FORWARDED];

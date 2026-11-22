@@ -47,3 +47,12 @@ describe("kaamos-button", () => {
     expect(el.button!.textContent).toBe("Tardi");
   });
 });
+
+describe("kaamos-button con popover", () => {
+  it("inoltra popovertarget al <button> interno", () => {
+    document.body.innerHTML = `<kaamos-button popovertarget="menu">Apri</kaamos-button>`;
+    expect(document.querySelector("kaamos-button")!.button!.getAttribute("popovertarget")).toBe(
+      "menu",
+    );
+  });
+});

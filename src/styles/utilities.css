@@ -194,3 +194,73 @@
     @apply cursor-not-allowed opacity-40;
   }
 }
+
+/* =====================================================================
+ * Overlay: dialog e popover. Usano le API native del browser:
+ *   - <dialog> + showModal(): focus intrappolato, Esc, pagina inerte, ::backdrop
+ *   - attributo popover: top layer, chiusura cliccando fuori o con Esc
+ * Il DESIGN.md non usa ombre: la profondità viene dalla scala delle superfici
+ * (canvas -> surface -> surface-elevated -> surface-card) e dai bordi hairline.
+ * ===================================================================== */
+
+/* ---- dialog: <dialog class="kaamos-dialog"> ---- */
+@utility kaamos-dialog {
+  @apply m-auto w-[calc(100%-2rem)] max-w-md rounded-lg border border-hairline bg-surface p-6 font-sans text-body-md text-body;
+
+  &::backdrop {
+    /* canvas al 70%: un colore derivato dai token, non uno nuovo. */
+    @apply bg-canvas/70;
+  }
+}
+
+/* ---- popover: <div popover class="kaamos-popover"> ----
+   Base condivisa con kaamos-menu. Senza supporto per l'anchor positioning
+   il popover resta centrato nella finestra (comportamento di default del
+   browser): funziona ancora, solo meno vicino al bottone. */
+@utility kaamos-popover-surface {
+  @apply rounded-lg border border-hairline bg-surface font-sans text-body-md text-on-dark;
+
+  @supports (position-area: block-end) {
+    /* Il popover aperto da un bottone con popovertarget ha quel bottone come
+       ancora implicita: non serve anchor-name. */
+    inset: auto;
+    margin: 4px 0;
+    position-area: block-end span-inline-end;
+    /* Se sotto non c'è spazio si apre sopra; se a destra no, a sinistra. */
+    position-try-fallbacks:
+      flip-block,
+      flip-inline,
+      flip-block flip-inline;
+  }
+}
+
+@utility kaamos-popover {
+  @apply kaamos-popover-surface max-w-xs p-4 text-body-sm text-body;
+}
+
+/* ---- menu: stile di <kaamos-menu> e delle sue voci ----
+   Le voci seguono command-palette-row del DESIGN.md. */
+@utility kaamos-menu {
+  @apply kaamos-popover-surface min-w-48 p-1;
+}
+
+@utility kaamos-menu-item {
+  @apply flex w-full cursor-pointer items-center gap-3 rounded-sm bg-transparent px-2.5 py-1.5 text-left font-sans text-body-md text-on-dark outline-none;
+
+  &:is(:hover, :focus-visible) {
+    @apply bg-surface-card;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed text-ash;
+  }
+
+  /* Scorciatoia da tastiera allineata a destra */
+  & > .kaamos-keycap {
+    @apply ml-auto;
+  }
+}
+
+@utility kaamos-menu-separator {
+  @apply mx-1 my-1 h-px border-0 bg-hairline;
+}

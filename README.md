@@ -13,6 +13,8 @@ Guida completa all'uso, componente per componente: [`docs/README.md`](docs/READM
 | Button                                 | web component            | `<kaamos-button variant="primary">`               |
 | Text input                             | web component            | `<kaamos-text-input name="email">`                |
 | Search bar                             | web component            | `<kaamos-search-bar name="q">`                    |
+| Menu                                   | web component            | `<kaamos-menu popover>`                           |
+| Dialog, popover                        | elemento nativo + classe | `<dialog class="kaamos-dialog">`                  |
 | Checkbox, select, slider               | elemento nativo + classe | `<input type="checkbox" class="kaamos-checkbox">` |
 | Badge, keycap, app icon tile, pill tab | classi CSS               | `class="kaamos-badge-pro"`                        |
 
