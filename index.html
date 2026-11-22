@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kaamos · Web Components</title>
+    <!-- Preload del font: il browser lo scarica subito invece di aspettare il CSS. -->
+    <link
+      rel="preload"
+      href="/src/fonts/InterVariable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/demo/demo.css" />
+    <script type="module" src="/src/index.ts"></script>
+  </head>
+  <body class="min-h-screen bg-canvas text-body font-sans">
+    <header class="kaamos-nav">
+      <button class="kaamos-nav-toggle" popovertarget="demo-nav" aria-label="Apri il menu">
+        <svg
+          class="size-5"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M3 6h14M3 10h14M3 14h14" />
+        </svg>
+      </button>
+      <a class="kaamos-nav-brand" href="#">Kaamos</a>
+      <nav id="demo-nav" popover class="kaamos-nav-links" aria-label="Principale">
+        <a class="kaamos-nav-link" href="#" aria-current="page">Componenti</a>
+        <a class="kaamos-nav-link" href="#">Mail</a>
+        <a class="kaamos-nav-link" href="#">Drive</a>
+        <a class="kaamos-nav-link" href="#">Todo</a>
+        <a class="kaamos-nav-link" href="#">Docs</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a class="kaamos-nav-link kaamos-nav-secondary" href="#">Accedi</a>
+        <kaamos-button variant="primary">Download</kaamos-button>
+      </div>
+    </header>
+    <main class="mx-auto max-w-3xl px-6 py-section flex flex-col gap-16">
+      <header class="flex flex-col gap-2">
+        <h1 class="text-display-lg text-ink">Kaamos</h1>
+        <p class="text-body-lg text-mute">
+          Web Components in light DOM, stile con Tailwind CSS. La g di "design" usa ss03.
+        </p>
+      </header>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Bottoni</h2>
+        <div class="flex flex-wrap items-center gap-3">
+          <kaamos-button variant="primary">Download</kaamos-button>
+          <kaamos-button variant="secondary">Learn more →</kaamos-button>
+          <kaamos-button variant="tertiary">Watch demo</kaamos-button>
+          <kaamos-button variant="install">Install</kaamos-button>
+        </div>
+        <h3 class="text-body-sm-strong text-mute">Disabled</h3>
+        <div class="flex flex-wrap items-center gap-3">
+          <kaamos-button variant="primary" disabled>Download</kaamos-button>
+          <kaamos-button variant="secondary" disabled>Learn more →</kaamos-button>
+          <kaamos-button variant="tertiary" disabled>Watch demo</kaamos-button>
+          <kaamos-button variant="install" disabled>Install</kaamos-button>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Input</h2>
+        <form
+          id="demo-form"
+          class="flex flex-col gap-4 rounded-lg border border-hairline bg-surface p-6"
+        >
+          <label class="flex flex-col gap-2 text-body-sm-strong text-charcoal">
+            Nome
+            <kaamos-text-input name="nome" placeholder="Il tuo nome" required></kaamos-text-input>
+          </label>
+          <label class="flex flex-col gap-2 text-body-sm-strong text-charcoal">
+            Email
+            <kaamos-text-input
+              name="email"
+              type="email"
+              placeholder="tu@esempio.org"
+              autocomplete="email"
+            ></kaamos-text-input>
+          </label>
+          <label class="flex flex-col gap-2 text-body-sm-strong text-charcoal">
+            Disabilitato
+            <kaamos-text-input
+              name="bloccato"
+              value="Non modificabile"
+              disabled
+            ></kaamos-text-input>
+          </label>
+          <div class="flex gap-3">
+            <kaamos-button variant="primary" type="submit">Invia</kaamos-button>
+            <kaamos-button variant="tertiary" type="reset">Reset</kaamos-button>
+          </div>
+          <output id="demo-output" class="text-caption-md text-mute"></output>
+        </form>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Card</h2>
+        <div class="grid gap-4 md:grid-cols-2">
+          <article class="kaamos-card flex flex-col gap-3">
+            <h3 class="text-heading-sm text-ink">Kaamos Mail</h3>
+            <p class="text-body-sm text-mute">
+              Un client email libero, veloce e senza tracciamento.
+            </p>
+            <kaamos-button variant="secondary" class="self-start">Learn more →</kaamos-button>
+          </article>
+          <article class="kaamos-card-elevated flex flex-col gap-3">
+            <h3 class="text-heading-sm text-ink">Kaamos Drive</h3>
+            <p class="text-body-sm text-mute">File e foto sul tuo server, sincronizzati ovunque.</p>
+            <kaamos-button variant="tertiary" class="self-start">Watch demo</kaamos-button>
+          </article>
+        </div>
+        <article class="kaamos-card-compact">
+          <span class="kaamos-app-icon-tile text-accent-yellow">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <rect
+                x="12"
+                y="15"
+                width="24"
+                height="18"
+                rx="3"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path d="M13 17l11 8 11-8" fill="none" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </span>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-body-strong text-ink">
+              Mail Sorter <span class="kaamos-badge-info ml-1">Beta</span>
+            </h3>
+            <p class="text-caption-md text-mute">di Kaamos · Ordina la posta con regole locali</p>
+          </div>
+          <kaamos-button variant="install">Install</kaamos-button>
+        </article>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Command palette</h2>
+        <p class="text-body-sm text-mute">
+          Premi <kbd class="kaamos-keycap">⌘</kbd> <kbd class="kaamos-keycap">K</kbd> (o
+          <kbd class="kaamos-keycap">Ctrl</kbd> <kbd class="kaamos-keycap">K</kbd>) oppure il
+          bottone.
+        </p>
+        <div class="flex items-center gap-3">
+          <kaamos-button variant="tertiary" id="demo-palette-open">Apri la palette</kaamos-button>
+          <span id="demo-palette-output" class="text-caption-md text-mute"></span>
+        </div>
+        <kaamos-command-palette id="demo-palette" shortcut="k" placeholder="Cerca un comando...">
+          <button value="nuova-email">Nuova email <kbd class="kaamos-keycap">⌘ N</kbd></button>
+          <button value="cerca-posta">Cerca nella posta</button>
+          <button value="carica-file">Carica un file su Drive</button>
+          <button value="nuova-attivita">Nuova attività in Todo</button>
+          <button value="impostazioni">Impostazioni <kbd class="kaamos-keycap">⌘ ,</kbd></button>
+        </kaamos-command-palette>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Tab</h2>
+        <kaamos-tabs>
+          <div aria-label="Impostazioni account">
+            <button>Generale</button>
+            <button>Account</button>
+            <button>Privacy</button>
+          </div>
+          <div class="text-body-sm text-body">Lingua, tema e scorciatoie da tastiera.</div>
+          <div class="text-body-sm text-body">Nome, email e password del tuo account Kaamos.</div>
+          <div class="text-body-sm text-body">
+            Nessun tracciamento: Kaamos è software libero e i tuoi dati restano tuoi.
+          </div>
+        </kaamos-tabs>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Overlay</h2>
+        <div class="flex flex-wrap items-center gap-3">
+          <kaamos-button variant="tertiary" commandfor="demo-dialog" command="show-modal">
+            Apri dialog
+          </kaamos-button>
+          <kaamos-button variant="tertiary" popovertarget="demo-popover">Info</kaamos-button>
+          <kaamos-button variant="tertiary" popovertarget="demo-menu">Azioni ▾</kaamos-button>
+          <span id="demo-menu-output" class="text-caption-md text-mute"></span>
+        </div>
+
+        <dialog id="demo-dialog" class="kaamos-dialog" aria-labelledby="demo-dialog-title">
+          <h3 id="demo-dialog-title" class="text-heading-md text-ink">Eliminare il file?</h3>
+          <p class="mt-2 text-body-sm text-mute">
+            Il file verrà spostato nel cestino. Potrai recuperarlo per 30 giorni.
+          </p>
+          <form method="dialog" class="mt-6 flex justify-end gap-3">
+            <kaamos-button variant="secondary" type="submit" value="annulla">Annulla</kaamos-button>
+            <kaamos-button variant="primary" type="submit" value="elimina">Elimina</kaamos-button>
+          </form>
+        </dialog>
+
+        <div id="demo-popover" popover class="kaamos-popover">
+          Kaamos è il nome finlandese della notte polare. I popover si chiudono cliccando fuori o
+          con
+          <kbd class="kaamos-keycap">Esc</kbd>.
+        </div>
+
+        <kaamos-menu id="demo-menu" popover aria-label="Azioni sul file">
+          <button>Rinomina</button>
+          <button>Duplica <kbd class="kaamos-keycap">⌘ D</kbd></button>
+          <button disabled>Sposta (non disponibile)</button>
+          <hr />
+          <button>Elimina</button>
+        </kaamos-menu>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Controlli dei form</h2>
+        <div class="flex flex-col gap-3 rounded-lg border border-hairline bg-surface p-6">
+          <label class="flex items-center gap-2 text-body-sm text-body">
+            <input type="checkbox" class="kaamos-checkbox" name="news" checked />
+            Ricevi le novità di Kaamos
+          </label>
+          <label class="flex items-center gap-2 text-body-sm text-body">
+            <input type="checkbox" class="kaamos-checkbox" name="beta" />
+            Partecipa alla beta
+          </label>
+          <label class="flex items-center gap-2 text-body-sm text-body">
+            <input type="checkbox" class="kaamos-checkbox" id="demo-indeterminate" />
+            Selezione parziale (indeterminate)
+          </label>
+          <label class="flex items-center gap-2 text-body-sm text-ash">
+            <input type="checkbox" class="kaamos-checkbox" disabled checked />
+            Disabilitata
+          </label>
+
+          <label class="mt-3 flex flex-col gap-2 text-body-sm-strong text-charcoal">
+            Lingua
+            <kaamos-select>
+              <select name="lingua" required>
+                <option value="" hidden>Scegli una lingua</option>
+                <optgroup label="Europa del sud">
+                  <option value="it">Italiano</option>
+                  <option value="es">Español</option>
+                </optgroup>
+                <optgroup label="Paesi nordici">
+                  <option value="fi">Suomi</option>
+                  <option value="sv">Svenska</option>
+                  <option value="no">Norsk</option>
+                  <option value="is" disabled>Íslenska (presto)</option>
+                </optgroup>
+                <option value="en">English</option>
+              </select>
+            </kaamos-select>
+          </label>
+
+          <label class="mt-3 flex flex-col gap-2 text-body-sm-strong text-charcoal">
+            Volume
+            <input type="range" class="kaamos-range" name="volume" min="0" max="100" value="60" />
+          </label>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Classi statiche</h2>
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="kaamos-badge-pro">Pro</span>
+          <span class="kaamos-badge-pro">Free</span>
+          <span class="kaamos-badge-info">Beta</span>
+          <span class="text-body-sm text-mute">Apri la palette con</span>
+          <kbd class="kaamos-keycap">⌘</kbd>
+          <kbd class="kaamos-keycap">K</kbd>
+          <kbd class="kaamos-keycap">Esc</kbd>
+        </div>
+        <div class="flex items-end gap-3">
+          <span class="kaamos-app-icon-tile text-accent-yellow">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <rect
+                x="12"
+                y="15"
+                width="24"
+                height="18"
+                rx="3"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path d="M13 17l11 8 11-8" fill="none" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </span>
+          <span class="kaamos-app-icon-tile-lg text-accent-green">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <path
+                d="M18 40a8 8 0 0 1 1-16 11 11 0 0 1 21-3 9 9 0 0 1 6 19z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              />
+            </svg>
+          </span>
+        </div>
+        <div
+          id="demo-pills"
+          role="group"
+          aria-label="Filtra estensioni"
+          class="flex flex-wrap gap-1"
+        >
+          <button class="kaamos-pill-tab" aria-pressed="true">All</button>
+          <button class="kaamos-pill-tab" aria-pressed="false">Recently Added</button>
+          <button class="kaamos-pill-tab" aria-pressed="false">Most Popular</button>
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Search bar</h2>
+        <kaamos-search-bar name="q" placeholder="Search..." aria-label="Cerca"></kaamos-search-bar>
+        <kaamos-search-bar
+          placeholder="Search..."
+          aria-label="Cerca (disabilitato)"
+          disabled
+        ></kaamos-search-bar>
+      </section>
+    </main>
+
+    <script type="module">
+      // Mostra cosa riceve il form: prova che gli input in light DOM partecipano al form.
+      const form = document.getElementById("demo-form");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const data = Object.fromEntries(new FormData(form));
+        document.getElementById("demo-output").textContent = JSON.stringify(data);
+      });
+      // Command palette: apertura dal bottone e voce scelta.
+      const palette = document.getElementById("demo-palette");
+      document.getElementById("demo-palette-open").addEventListener("click", () => palette.show());
+      palette.addEventListener("kaamos-select", (event) => {
+        document.getElementById("demo-palette-output").textContent =
+          "Comando: " + event.detail.item.value;
+      });
+
+      // Menu: l'evento kaamos-select dice quale voce è stata scelta.
+      document.getElementById("demo-menu").addEventListener("kaamos-select", (event) => {
+        document.getElementById("demo-menu-output").textContent =
+          "Scelto: " + event.detail.item.firstChild.textContent.trim();
+      });
+
+      // indeterminate esiste solo come proprietà JS, non come attributo HTML.
+      document.getElementById("demo-indeterminate").indeterminate = true;
+
+      // Pill tab: un solo filtro attivo alla volta, lo stato vive in aria-pressed.
+      const pills = document.getElementById("demo-pills");
+      pills.addEventListener("click", (event) => {
+        const pill = event.target.closest(".kaamos-pill-tab");
+        if (!pill) return;
+        for (const other of pills.querySelectorAll(".kaamos-pill-tab")) {
+          other.setAttribute("aria-pressed", String(other === pill));
+        }
+      });
+    </script>
+  </body>
+</html>

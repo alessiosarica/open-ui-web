@@ -1,0 +1,54 @@
+/*
+ * Punto d'ingresso del CSS compilato (dist/styles/kaamos.css).
+ * Chi usa la libreria SENZA Tailwind importa solo questo file.
+ *
+ * source(none): non scansionare tutto il progetto, ma solo i componenti.
+ * Così nel CSS pubblicato finiscono solo le classi che i componenti usano davvero.
+ */
+@import "tailwindcss" source(none);
+@import "./fonts.css";
+@import "./theme.css";
+@import "./utilities.css";
+
+@source "../components";
+
+/* Le classi statiche (@utility) non sono usate dentro i componenti, quindi
+   Tailwind non le troverebbe. @source inline le aggiunge comunque al CSS
+   compilato, così chi usa kaamos.css senza Tailwind le ha a disposizione. */
+@source inline("kaamos-badge-pro kaamos-badge-info kaamos-keycap kaamos-app-icon-tile kaamos-app-icon-tile-lg kaamos-pill-tab kaamos-checkbox kaamos-select-trigger kaamos-select-list kaamos-select-option kaamos-select-group kaamos-range kaamos-dialog kaamos-popover kaamos-menu kaamos-menu-item kaamos-menu-separator kaamos-card kaamos-card-elevated kaamos-card-compact kaamos-command-palette kaamos-command-row kaamos-nav kaamos-nav-brand kaamos-nav-toggle kaamos-nav-links kaamos-nav-link kaamos-nav-secondary");
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background-color: var(--color-canvas);
+    color: var(--color-body);
+  }
+
+  /* Gli elementi sconosciuti sono "inline" di default: diamo ai componenti
+     il display giusto per il loro ruolo. */
+  kaamos-button {
+    display: inline-flex;
+  }
+  kaamos-text-input,
+  kaamos-search-bar,
+  kaamos-tabs,
+  kaamos-select {
+    display: block;
+  }
+  /* kaamos-menu NON va qui: è un popover, il browser lo nasconde da solo
+     finché non viene aperto (e un display qui lo renderebbe sempre visibile). */
+
+  /* Prima che il JS registri il componente, il testo dei figli sarebbe visibile
+     senza stile per un attimo (FOUC): lo nascondiamo finché non è :defined. */
+  kaamos-button:not(:defined),
+  kaamos-text-input:not(:defined),
+  kaamos-search-bar:not(:defined),
+  kaamos-tabs:not(:defined) {
+    visibility: hidden;
+  }
+  /* Senza JS il menu non diventa un popover: meglio non mostrarlo affatto. */
+  kaamos-menu:not(:defined, [popover]),
+  kaamos-command-palette:not(:defined) {
+    display: none;
+  }
+}
