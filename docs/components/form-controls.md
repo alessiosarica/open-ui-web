@@ -1,41 +1,43 @@
-# Controlli dei form: checkbox, select, slider
+[Home](../README.md) › [Components](../README.md#components) › Form controls
 
-Checkbox e slider sono **elementi nativi** (`<input>`) con una classe Kaamos. Il select invece è un web component che avvolge un `<select>` nativo (vedi sotto). Il browser continua a gestire tastiera, form, validazione e screen reader. La classe cambia solo l'aspetto, grazie a `appearance: none`.
+# Form controls: checkbox, select, slider
 
-Un vantaggio in più: in Angular funzionano direttamente con `ngModel` e i reactive forms, senza adattatori.
+Checkbox and slider are **native elements** (`<input>`) with a Kaamos class. The select is instead a web component that wraps a native `<select>` (see below). The browser keeps handling keyboard, forms, validation and screen readers. The class only changes the look, thanks to `appearance: none`.
+
+One more advantage: in Angular they work directly with `ngModel` and reactive forms, with no adapters.
 
 ## Checkbox
 
 ```html
 <label>
   <input type="checkbox" class="kaamos-checkbox" name="news" checked />
-  Ricevi le novità
+  Get the news
 </label>
 ```
 
-- Selezionata: bianco `primary` con spunta nera, come il bottone principale.
-- `disabled`: supportato.
-- Stato "in parte" (es. "seleziona tutto" quando solo alcuni elementi sono selezionati): esiste solo da JavaScript.
+- Checked: white `primary` with a black tick, like the primary button.
+- `disabled`: supported.
+- The "partially checked" state (for example "select all" when only some items are selected) exists only from JavaScript.
 
 ```js
-document.querySelector("#tutti").indeterminate = true;
+document.querySelector("#all").indeterminate = true;
 ```
 
-Metti sempre la checkbox dentro una `<label>` (o collegala con `for`/`id`): così si clicca anche sul testo.
+Always put the checkbox inside a `<label>` (or link them with `for`/`id`): that way clicking the text works too.
 
 ## Select · `<kaamos-select>`
 
-Il select è l'unico controllo dei form che è un **web component**: la lista che si apre di un `<select>` nativo non si può stilare allo stesso modo in tutti i browser, quindi `kaamos-select` disegna la sua. Così l'aspetto è identico ovunque.
+The select is the only form control that is a **web component**: the drop-down list of a native `<select>` can't be styled the same way in every browser, so `kaamos-select` draws its own. That way it looks identical everywhere.
 
-Dentro scrivi un normale `<select>`:
+Inside, you write a normal `<select>`:
 
 ```html
 <label>
-  Lingua
+  Language
   <kaamos-select>
-    <select name="lingua" required>
-      <option value="" hidden>Scegli una lingua</option>
-      <optgroup label="Paesi nordici">
+    <select name="language" required>
+      <option value="" hidden>Choose a language</option>
+      <optgroup label="Nordic countries">
         <option value="fi">Suomi</option>
         <option value="sv">Svenska</option>
         <option value="is" disabled>Íslenska</option>
@@ -46,37 +48,37 @@ Dentro scrivi un normale `<select>`:
 </label>
 ```
 
-**Come funziona**: il `<select>` nativo resta nel DOM ma invisibile, ed è lui a contenere il valore. Il componente legge le sue `<option>`, disegna campo e lista, e quando scegli aggiorna il select ed emette `input` e `change` su di lui. Per questo funzionano senza codice extra:
+**How it works**: the native `<select>` stays in the DOM but invisible, and it is the one holding the value. The component reads its `<option>`s, draws the field and the list, and when you pick an option it updates the select and fires `input` and `change` on it. That's why these work with no extra code:
 
-- `FormData`, invio del form, `required` (il fumetto di errore del browser compare sul campo) e reset del form;
-- `ngModel` e reactive forms di Angular, messi sul `<select>` interno;
-- `select.value = "sv"` da JavaScript: il campo si aggiorna;
-- `<optgroup>`, opzioni `disabled`, e un'opzione segnaposto con `value=""` e `hidden`;
-- se il JavaScript non carica, l'utente vede un select nativo funzionante.
+- `FormData`, form submission, `required` (the browser's error bubble appears on the field) and form reset;
+- Angular's `ngModel` and reactive forms, placed on the inner `<select>`;
+- `select.value = "sv"` from JavaScript: the field updates;
+- `<optgroup>`, `disabled` options, and a placeholder option with `value=""` and `hidden`;
+- if JavaScript doesn't load, the user sees a working native select.
 
 ```js
-const lingua = document.querySelector("kaamos-select select");
-lingua.addEventListener("change", () => console.log(lingua.value));
+const language = document.querySelector("kaamos-select select");
+language.addEventListener("change", () => console.log(language.value));
 ```
 
-**Tastiera** (pattern ARIA "select-only combobox", il focus resta sempre sul campo):
+**Keyboard** (ARIA "select-only combobox" pattern, focus always stays on the field):
 
-| Tasto            | Lista chiusa              | Lista aperta                                                       |
-| ---------------- | ------------------------- | ------------------------------------------------------------------ |
-| ↓ ↑ Invio Spazio | apre                      | ↓ ↑ si muovono (saltando le disabilitate), Invio e Spazio scelgono |
-| Home / End       | apre sulla prima / ultima | prima / ultima opzione                                             |
-| PagSu / PagGiù   |                           | salta di 10                                                        |
-| Esc              |                           | chiude senza cambiare                                              |
-| Tab              |                           | sceglie l'opzione attiva e prosegue                                |
-| Lettere          | cambia subito valore      | sposta l'opzione attiva                                            |
+| Key               | List closed               | List open                                                    |
+| ----------------- | ------------------------- | ------------------------------------------------------------ |
+| ↓ ↑ Enter Space   | opens                     | ↓ ↑ move (skipping disabled options), Enter and Space choose |
+| Home / End        | opens on the first / last | first / last option                                          |
+| PageUp / PageDown |                           | jumps by 10                                                  |
+| Esc               |                           | closes without changing                                      |
+| Tab               |                           | chooses the active option and moves on                       |
+| Letters           | changes the value at once | moves the active option                                      |
 
-**Ricerca digitando**: lettere diverse cercano l'inizio del testo ("sv" → Svenska); la stessa lettera ripetuta scorre le opzioni che iniziano con quella lettera ("s", "s" → Svenska, poi Suomi). Dopo mezzo secondo di pausa la ricerca ricomincia.
+**Type to search**: different letters search the start of the text ("sv" → Svenska); the same letter repeated cycles through the options starting with it ("s", "s" → Svenska, then Suomi). After half a second of pause the search starts over.
 
-**Posizione**: la lista si apre sotto il campo, sopra se sotto non c'è spazio, larga almeno quanto il campo. Usa il CSS anchor positioning dove c'è, e un calcolo in JavaScript negli altri browser.
+**Position**: the list opens below the field, above it if there is no room below, and at least as wide as the field. It uses CSS anchor positioning where available, and a JavaScript calculation in other browsers.
 
-**Trade-off**: su mobile non compare il selettore di sistema (per esempio la "ruota" di iOS), ma la nostra lista.
+**Trade-off**: on mobile the system picker (for example the iOS "wheel") doesn't appear; our list does.
 
-**Attributi** sul tag: `aria-label`, `aria-labelledby`, `aria-describedby` (inoltrati al campo, se non usi una `<label>`). Tutto il resto (`name`, `required`, `disabled`...) va sul `<select>` interno.
+**Attributes** on the tag: `aria-label`, `aria-labelledby`, `aria-describedby` (forwarded to the field, if you don't use a `<label>`). Everything else (`name`, `required`, `disabled`…) goes on the inner `<select>`.
 
 ## Slider
 
@@ -87,6 +89,11 @@ lingua.addEventListener("change", () => console.log(lingua.value));
 </label>
 ```
 
-- Binario `hairline-strong` da 4px, cursore bianco da 16px.
-- Supporta `min`, `max`, `step`, `disabled` come il range nativo.
-- **Limite noto**: la parte "riempita" a sinistra del cursore non è colorata, perché Chrome e Safari non hanno uno pseudo-elemento per farlo solo con il CSS (Firefox sì). Per averla servirebbe un po' di JavaScript che aggiorna una variabile CSS a ogni movimento.
+- A 4px `hairline-strong` track, a 16px white thumb.
+- Supports `min`, `max`, `step` and `disabled` like the native range.
+- **Known limit**: the "filled" part to the left of the thumb isn't coloured, because Chrome and Safari have no pseudo-element to do it with CSS alone (Firefox does). It would need a bit of JavaScript that updates a CSS variable on every move.
+
+## See also
+
+- [Text input](text-input.md)
+- [Decisions](../decisions.md#native-elements-first)

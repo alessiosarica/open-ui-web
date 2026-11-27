@@ -1,77 +1,84 @@
-# Overlay: dialog, popover, menu
+[Home](../README.md) › [Components](../README.md#components) › Overlays
 
-Tutti e tre usano API native del browser, quindi apertura, chiusura con Esc e gestione del focus funzionano senza codice nostro.
+# Overlays: dialog, popover, menu
 
-| Componente | Cosa è                                 | Quando usarlo                                                 |
-| ---------- | -------------------------------------- | ------------------------------------------------------------- |
-| Dialog     | `<dialog class="kaamos-dialog">`       | Serve una risposta prima di continuare ("Eliminare il file?") |
-| Popover    | `<div popover class="kaamos-popover">` | Informazioni o contenuto leggero vicino a un bottone          |
-| Menu       | `<kaamos-menu>`                        | Lista di azioni che si apre da un bottone (dropdown menu)     |
+All three use native browser APIs, so opening, closing with Esc and focus management work without our code.
 
-Il DESIGN.md non usa ombre: gli overlay si staccano dalla pagina con la superficie `surface` e il bordo `hairline`.
+| Component | What it is                             | When to use it                                             |
+| --------- | -------------------------------------- | ---------------------------------------------------------- |
+| Dialog    | `<dialog class="kaamos-dialog">`       | An answer is needed before going on ("Delete the file?")   |
+| Popover   | `<div popover class="kaamos-popover">` | Information or light content next to a button              |
+| Menu      | `<kaamos-menu>`                        | A list of actions that opens from a button (dropdown menu) |
+
+DESIGN.md uses no shadows: overlays stand out from the page with the `surface` background and the `hairline` border.
 
 ## Dialog
 
 ```html
-<kaamos-button commandfor="conferma" command="show-modal">Elimina</kaamos-button>
+<kaamos-button commandfor="confirm" command="show-modal">Delete</kaamos-button>
 
-<dialog id="conferma" class="kaamos-dialog" aria-labelledby="conferma-titolo">
-  <h2 id="conferma-titolo">Eliminare il file?</h2>
-  <p>Potrai recuperarlo dal cestino per 30 giorni.</p>
+<dialog id="confirm" class="kaamos-dialog" aria-labelledby="confirm-title">
+  <h2 id="confirm-title">Delete the file?</h2>
+  <p>You can restore it from the trash for 30 days.</p>
   <form method="dialog">
-    <kaamos-button variant="secondary" type="submit" value="annulla">Annulla</kaamos-button>
-    <kaamos-button variant="primary" type="submit" value="elimina">Elimina</kaamos-button>
+    <kaamos-button variant="secondary" type="submit" value="cancel">Cancel</kaamos-button>
+    <kaamos-button variant="primary" type="submit" value="delete">Delete</kaamos-button>
   </form>
 </dialog>
 ```
 
-- **Aprire**: `commandfor` + `command="show-modal"` sul bottone (Invoker Commands API, senza JS). In alternativa, da JS: `document.getElementById("conferma").showModal()`.
-- **Chiudere**: un `<form method="dialog">` chiude il dialog quando viene inviato, e `dialog.returnValue` contiene il `value` del bottone premuto. Anche Esc lo chiude.
-- **Leggere la scelta**:
+- **Open**: `commandfor` + `command="show-modal"` on the button (Invoker Commands API, no JS). Or from JS: `document.getElementById("confirm").showModal()`.
+- **Close**: a `<form method="dialog">` closes the dialog when submitted, and `dialog.returnValue` holds the `value` of the pressed button. Esc closes it too.
+- **Read the choice**:
 
 ```js
-const dialog = document.getElementById("conferma");
+const dialog = document.getElementById("confirm");
 dialog.addEventListener("close", () => {
-  if (dialog.returnValue === "elimina") eliminaFile();
+  if (dialog.returnValue === "delete") deleteFile();
 });
 ```
 
-- Con `showModal()` il resto della pagina diventa inerte e il focus resta dentro il dialog. Dai sempre un titolo collegato con `aria-labelledby`.
-- **Un solo bottone primary**: l'azione principale del dialog.
+- With `showModal()` the rest of the page becomes inert and focus stays inside the dialog. Always give it a title linked with `aria-labelledby`.
+- **Only one primary button**: the dialog's main action.
 
 ## Popover
 
 ```html
 <kaamos-button variant="tertiary" popovertarget="info">Info</kaamos-button>
 
-<div id="info" popover class="kaamos-popover">Testo di aiuto vicino al bottone.</div>
+<div id="info" popover class="kaamos-popover">Help text next to the button.</div>
 ```
 
-- Si apre e chiude col bottone, e si chiude cliccando fuori o con Esc.
-- **Posizione**: con il CSS anchor positioning il popover si attacca sotto il bottone che lo apre e si gira da solo se non c'è spazio. Nei browser senza supporto appare al centro della finestra: funziona comunque.
-- Da JS: `el.showPopover()`, `el.hidePopover()`, `el.togglePopover()`.
+- It opens and closes with the button, and closes when you click outside or press Esc.
+- **Position**: with CSS anchor positioning the popover attaches below the button that opens it and flips by itself if there is no room. In browsers without support it appears in the middle of the window: it still works.
+- From JS: `el.showPopover()`, `el.hidePopover()`, `el.togglePopover()`.
 
 ## Menu · `<kaamos-menu>`
 
 ```html
-<kaamos-button variant="tertiary" popovertarget="azioni">Azioni</kaamos-button>
+<kaamos-button variant="tertiary" popovertarget="actions">Actions</kaamos-button>
 
-<kaamos-menu id="azioni" popover aria-label="Azioni sul file">
-  <button>Rinomina</button>
-  <button>Duplica <kbd class="kaamos-keycap">⌘ D</kbd></button>
-  <button disabled>Sposta</button>
+<kaamos-menu id="actions" popover aria-label="File actions">
+  <button>Rename</button>
+  <button>Duplicate <kbd class="kaamos-keycap">⌘ D</kbd></button>
+  <button disabled>Move</button>
   <hr />
-  <button>Elimina</button>
+  <button>Delete</button>
 </kaamos-menu>
 ```
 
 ```js
-document.getElementById("azioni").addEventListener("kaamos-select", (event) => {
-  console.log("Scelto:", event.detail.item);
+document.getElementById("actions").addEventListener("kaamos-select", (event) => {
+  console.log("Chosen:", event.detail.item);
 });
 ```
 
-- **Voci**: ogni `<button>` diventa una voce (`role="menuitem"`), ogni `<hr>` un separatore. Una `kbd.kaamos-keycap` dentro la voce va allineata a destra.
-- **Tastiera**: all'apertura il focus va sulla prima voce. ↑ ↓ si muovono (girando in tondo e saltando le voci disabilitate), Home ed End vanno a inizio e fine, Invio sceglie, Esc chiude, Tab chiude e prosegue.
-- **Evento** `kaamos-select`: arriva quando scegli una voce, con `detail.item` = il bottone. Dopo il menu si chiude da solo.
-- Scrivi l'attributo `popover` nell'HTML: così, se il JS non carica, il menu resta nascosto invece di comparire in mezzo alla pagina.
+- **Items**: every `<button>` becomes an item (`role="menuitem"`), every `<hr>` a separator. A `kbd.kaamos-keycap` inside the item is aligned to the right.
+- **Keyboard**: on open, focus goes to the first item. ↑ ↓ move (wrapping around and skipping disabled items), Home and End go to the start and the end, Enter chooses, Esc closes, Tab closes and moves on.
+- **Event** `kaamos-select`: fires when you choose an item, with `detail.item` = the button. Then the menu closes by itself.
+- Write the `popover` attribute in the HTML: that way, if JS doesn't load, the menu stays hidden instead of showing up in the middle of the page.
+
+## See also
+
+- [Button](button.md): the attributes that open overlays
+- [Command palette](command-palette.md)

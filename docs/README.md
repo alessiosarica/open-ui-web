@@ -1,33 +1,42 @@
-# Documentazione di @kaamos/open-ui-web
+# Kaamos UI for the web: wiki
 
-Il design system Kaamos è fatto di due tipi di componenti:
+`@kaamos/open-ui-web` is the web library of the Kaamos design system: Web Components in **light DOM**, styled with **Tailwind CSS v4**, with the Inter font served locally. It works in any web project (plain HTML, Angular, others).
 
-| Tipo                         | Quando                                 | Come si usa                          | Esempi                                                              |
-| ---------------------------- | -------------------------------------- | ------------------------------------ | ------------------------------------------------------------------- |
-| **Web component**            | il componente ha comportamento o stato | un tag: `<kaamos-button>`            | button, text-input, search-bar, select, menu, tabs, command-palette |
-| **Classe CSS statica**       | il componente è solo stile             | una classe su un elemento HTML       | badge, keycap, app-icon-tile, pill-tab                              |
-| **Elemento nativo + classe** | il browser ha già il controllo giusto  | una classe su `<input>` o `<dialog>` | checkbox, slider, dialog, popover                                   |
+The design system has three kinds of components:
 
-Le specifiche visive (colori, tipografia, misure) sono in [`DESIGN.md`](DESIGN.md).
+| Kind                       | When                                      | How you use it                     | Examples                                                            |
+| -------------------------- | ----------------------------------------- | ---------------------------------- | ------------------------------------------------------------------- |
+| **Web component**          | the component has behaviour or state      | a tag: `<kaamos-button>`           | button, text-input, search-bar, select, menu, tabs, command-palette |
+| **Static CSS class**       | the component is only style               | a class on an HTML element         | badge, keycap, app-icon-tile, pill-tab, card, nav                   |
+| **Native element + class** | the browser already has the right control | a class on `<input>` or `<dialog>` | checkbox, slider, dialog, popover                                   |
 
-## Installazione
+## Pages
+
+| Page                                  | What you will find                                                         |
+| ------------------------------------- | -------------------------------------------------------------------------- |
+| [Getting started](getting-started.md) | Develop the library: Vite+, demo page, tests, build                        |
+| [Architecture](architecture.md)       | Light DOM, how a component is built, the CSS layers, the published package |
+| [Design spec (DESIGN.md)](DESIGN.md)  | The visual spec: colours, typography, sizes, component specs               |
+| [Decisions](decisions.md)             | The key choices and their trade-offs                                       |
+
+## Installation
 
 ```bash
 npm install @kaamos/open-ui-web
 ```
 
-### Progetto senza Tailwind
+### Project without Tailwind
 
 ```js
-import "@kaamos/open-ui-web"; // registra i web components
-import "@kaamos/open-ui-web/kaamos.css"; // font, token, reset, componenti e classi statiche
+import "@kaamos/open-ui-web"; // registers the web components
+import "@kaamos/open-ui-web/kaamos.css"; // fonts, tokens, reset, components and static classes
 ```
 
-`kaamos.css` include anche il reset di Tailwind (preflight), che normalizza margini, font e controlli dei form su tutta la pagina.
+`kaamos.css` also includes Tailwind's reset (preflight), which normalises margins, fonts and form controls across the whole page.
 
-### Progetto con Tailwind v4
+### Project with Tailwind v4
 
-Riusi i token come classi (`bg-canvas`, `text-body-md`, `rounded-md`...) nel tuo codice:
+You reuse the tokens as classes (`bg-canvas`, `text-body-md`, `rounded-md`…) in your own code:
 
 ```css
 @import "tailwindcss";
@@ -35,13 +44,13 @@ Riusi i token come classi (`bg-canvas`, `text-body-md`, `rounded-md`...) nel tuo
 @import "@kaamos/open-ui-web/theme.css";
 @import "@kaamos/open-ui-web/utilities.css";
 
-/* Tailwind deve leggere le classi usate dentro i web components */
+/* Tailwind must read the classes used inside the web components */
 @source "../node_modules/@kaamos/open-ui-web/dist";
 ```
 
 ### Angular
 
-I tag `kaamos-*` sono elementi standard del browser. Aggiungi `CUSTOM_ELEMENTS_SCHEMA` ai componenti Angular che li usano:
+The `kaamos-*` tags are standard browser elements. Add `CUSTOM_ELEMENTS_SCHEMA` to the Angular components that use them:
 
 ```ts
 @Component({
@@ -52,33 +61,41 @@ I tag `kaamos-*` sono elementi standard del browser. Aggiungi `CUSTOM_ELEMENTS_S
 export class AppComponent {}
 ```
 
-## Componenti
+For form fields see [Text input › Angular](components/text-input.md#angular).
+
+## Components
 
 - [Button](components/button.md)
 - [Text input](components/text-input.md)
 - [Search bar](components/search-bar.md)
-- [Controlli dei form: checkbox, select, slider](components/form-controls.md)
-- [Overlay: dialog, popover, menu](components/overlays.md)
-- [Tab](components/tabs.md)
+- [Form controls: checkbox, select, slider](components/form-controls.md)
+- [Overlays: dialog, popover, menu](components/overlays.md)
+- [Tabs](components/tabs.md)
 - [Command palette](components/command-palette.md)
-- [Contenitori: card e navigazione principale](components/containers.md)
-- [Classi statiche: badge, keycap, app-icon-tile, pill-tab](components/static.md)
+- [Containers: card and main navigation](components/containers.md)
+- [Static classes: badge, keycap, app-icon-tile, pill-tab](components/static.md)
 
-## Token
+## Tokens
 
-Tutti i token sono in `src/styles/theme.css` e diventano sia classi Tailwind sia variabili CSS:
+Every token is in `src/styles/theme.css` and becomes both a Tailwind class and a CSS variable:
 
-| Token DESIGN.md      | Classe Tailwind            | Variabile CSS            |
+| DESIGN.md token      | Tailwind class             | CSS variable             |
 | -------------------- | -------------------------- | ------------------------ |
 | `colors.canvas`      | `bg-canvas`, `text-canvas` | `var(--color-canvas)`    |
 | `typography.body-md` | `text-body-md`             | `var(--text-body-md)`    |
 | `rounded.md`         | `rounded-md`               | `var(--radius-md)`       |
 | `spacing.section`    | `py-section`               | `var(--spacing-section)` |
 
-Le spaziature seguono la griglia da 4px di Tailwind: `p-2` = 8px, `p-3` = 12px, `p-4` = 16px.
+Spacing follows Tailwind's 4px grid: `p-2` = 8px, `p-3` = 12px, `p-4` = 16px.
 
 ## Font
 
-Inter 4.1 (variabile, pesi 100-900) è incluso nel pacchetto, nessuna richiesta a server esterni. Le feature `calt`, `kern`, `liga` e `ss03` sono attive su tutta la pagina. Licenza: SIL OFL 1.1.
+Inter 4.1 (variable, weights 100–900) is included in the package: no requests to external servers. The `calt`, `kern`, `liga` and `ss03` features are on across the whole page. License: SIL OFL 1.1.
 
-Per caricarlo prima, aggiungi un preload nell'`<head>` con il percorso dove il tuo bundler serve `dist/fonts/InterVariable.woff2`.
+To load it earlier, add a preload in the `<head>` with the path where your bundler serves `dist/fonts/InterVariable.woff2`.
+
+## Writing these pages
+
+- One page per topic, in English, linked with relative links only.
+- Every page starts with a breadcrumb back to this Home and ends with "See also".
+- A pull request that changes a component also updates its page.

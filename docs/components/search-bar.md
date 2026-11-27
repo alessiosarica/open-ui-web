@@ -1,29 +1,36 @@
+[Home](../README.md) › [Components](../README.md#components) › Search bar
+
 # Search bar · `<kaamos-search-bar>`
 
-Campo di ricerca con la lente a sinistra, più alto del text input (44px). Usa `<input type="search">`: Esc svuota il campo e su mobile la tastiera mostra il tasto "Cerca".
+A search field with the magnifying glass on the left, taller than the text input (44px). It uses `<input type="search">`: Esc clears the field and on mobile the keyboard shows the "Search" key.
 
 ```html
 <form action="/store">
   <kaamos-search-bar
     name="q"
     placeholder="Search..."
-    aria-label="Cerca estensioni"
+    aria-label="Search extensions"
   ></kaamos-search-bar>
 </form>
 ```
 
-Premendo Invio il form viene inviato, senza codice extra.
+Pressing Enter submits the form, with no extra code.
 
-## Accessibilità
+## Accessibility
 
-Il placeholder **non** è un'etichetta: sparisce quando scrivi e molti screen reader non lo leggono. Dai sempre un `aria-label`.
+The placeholder is **not** a label: it disappears when you type and many screen readers don't read it. Always set an `aria-label`.
 
-Non mettere la search bar dentro una `<label>`: il componente usa già una label come contenitore (così cliccando la lente il focus va all'input), e le label annidate non sono valide.
+Don't put the search bar inside a `<label>`: the component already uses a label as its container (so clicking the magnifying glass focuses the input), and nested labels are not valid.
 
-## Attributi
+## Attributes
 
 `name`, `placeholder`, `value`, `autocomplete`, `minlength`, `maxlength`, `aria-label`, `aria-describedby`, `required`, `disabled`, `readonly`.
 
-## Proprietà ed eventi
+## Properties and events
 
-Come il [text input](text-input.md): `value`, `disabled`, `required`, `readOnly`, `focus()`, `input` (il campo nativo), eventi `input`/`change`/`blur`. Con Angular usa `ngDefaultControl` (vedi [text input](text-input.md#angular)).
+Like the [text input](text-input.md): `value`, `disabled`, `required`, `readOnly`, `focus()`, `input` (the native field), `input`/`change`/`blur` events. With Angular use `ngDefaultControl` (see [text input](text-input.md#angular)).
+
+## See also
+
+- [Text input](text-input.md)
+- [Command palette](command-palette.md)
