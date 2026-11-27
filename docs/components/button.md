@@ -1,6 +1,8 @@
+[Home](../README.md) › [Components](../README.md#components) › Button
+
 # Button · `<kaamos-button>`
 
-Bottone d'azione. Dentro crea un `<button>` nativo: tastiera, focus e form funzionano come un bottone normale.
+Action button. Inside it creates a native `<button>`: keyboard, focus and forms work like a normal button.
 
 ```html
 <kaamos-button variant="primary">Download</kaamos-button>
@@ -10,37 +12,43 @@ Bottone d'azione. Dentro crea un `<button>` nativo: tastiera, focus e form funzi
 <kaamos-button variant="primary" disabled>Download</kaamos-button>
 ```
 
-## Attributi
+## Attributes
 
-| Attributo                    | Valori                                        | Default   | Note                                                                    |
-| ---------------------------- | --------------------------------------------- | --------- | ----------------------------------------------------------------------- |
-| `variant`                    | `primary`, `secondary`, `tertiary`, `install` | `primary` | Valore sconosciuto → `primary`                                          |
-| `disabled`                   | booleano                                      | assente   | Stesso stile per tutte le varianti                                      |
-| `type`                       | `button`, `submit`, `reset`                   | `button`  | Diverso dal `<button>` nativo (che è `submit`): evita invii per sbaglio |
-| `name`, `value`, `form`      | come il `<button>` nativo                     |           | Inoltrati al bottone interno                                            |
-| `aria-label`, `aria-pressed` |                                               |           | Inoltrati al bottone interno                                            |
+| Attribute                                                       | Values                                        | Default   | Notes                                                                         |
+| --------------------------------------------------------------- | --------------------------------------------- | --------- | ----------------------------------------------------------------------------- |
+| `variant`                                                       | `primary`, `secondary`, `tertiary`, `install` | `primary` | Unknown value → `primary`                                                     |
+| `disabled`                                                      | boolean                                       | absent    | Same style for every variant                                                  |
+| `type`                                                          | `button`, `submit`, `reset`                   | `button`  | Unlike the native `<button>` (which is `submit`): avoids accidental submits   |
+| `name`, `value`, `form`                                         | as the native `<button>`                      |           | Forwarded to the inner button                                                 |
+| `aria-label`, `aria-pressed`                                    |                                               |           | Forwarded to the inner button                                                 |
+| `popovertarget`, `popovertargetaction`, `commandfor`, `command` |                                               |           | Forwarded, so the button opens popovers, menus and dialogs without JavaScript |
 
-## Proprietà JavaScript
+## JavaScript properties
 
 ```js
 const el = document.querySelector("kaamos-button");
 el.variant = "tertiary";
 el.disabled = true;
-el.focus(); // mette il focus sul bottone interno
-el.button; // il <button> nativo
+el.focus(); // focuses the inner button
+el.button; // the native <button>
 ```
 
-## Linee guida (DESIGN.md)
+## Guidelines (DESIGN.md)
 
-- **Un solo `primary` per schermata**: il bianco è riservato all'azione principale.
-- `secondary` per azioni leggere ("Learn more →"), `tertiary` per azioni medie dentro le card, `install` sulle card dello store.
-- Altezza 36px (install 32px), già sopra la soglia WCAG AA per i target touch.
+- **Only one `primary` per screen**: white is reserved for the main action.
+- `secondary` for light actions ("Learn more →"), `tertiary` for medium actions inside cards, `install` on store cards.
+- Height 36px (install 32px), already above the WCAG AA threshold for touch targets.
 
-## Dentro un form
+## Inside a form
 
 ```html
 <form>
   <kaamos-text-input name="email" type="email"></kaamos-text-input>
-  <kaamos-button variant="primary" type="submit">Iscriviti</kaamos-button>
+  <kaamos-button variant="primary" type="submit">Subscribe</kaamos-button>
 </form>
 ```
+
+## See also
+
+- [Overlays](overlays.md): opening dialogs and popovers from a button
+- [Static classes](static.md#pill-tab): pill tabs for filters

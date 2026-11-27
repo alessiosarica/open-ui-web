@@ -1,34 +1,36 @@
-# Tab · `<kaamos-tabs>`
+[Home](../README.md) › [Components](../README.md#components) › Tabs
 
-Per dividere un contenuto in sezioni, mostrandone una alla volta. Non esiste un elemento HTML nativo per le tab, quindi il componente implementa il pattern ARIA "tabs" (tablist, tab, tabpanel). Le tab hanno lo stile [`kaamos-pill-tab`](static.md#pill-tab).
+# Tabs · `<kaamos-tabs>`
+
+Splits content into sections, showing one at a time. There is no native HTML element for tabs, so the component implements the ARIA "tabs" pattern (tablist, tab, tabpanel). The tabs use the [`kaamos-pill-tab`](static.md#pill-tab) style.
 
 ```html
 <kaamos-tabs>
-  <div aria-label="Impostazioni account">
-    <button>Generale</button>
+  <div aria-label="Account settings">
+    <button>General</button>
     <button>Account</button>
     <button>Privacy</button>
   </div>
-  <section>Lingua, tema e scorciatoie.</section>
-  <section>Nome, email e password.</section>
-  <section>Impostazioni della privacy.</section>
+  <section>Language, theme and shortcuts.</section>
+  <section>Name, email and password.</section>
+  <section>Privacy settings.</section>
 </kaamos-tabs>
 ```
 
-## Struttura
+## Structure
 
-- **Primo figlio**: la lista delle tab. Ogni `<button>` dentro è una tab. Dagli un `aria-label` che descrive il gruppo.
-- **Figli successivi**: i pannelli, nello stesso ordine delle tab.
+- **First child**: the tab list. Every `<button>` inside is a tab. Give it an `aria-label` that describes the group.
+- **Following children**: the panels, in the same order as the tabs.
 
-Il componente collega da solo tab e pannelli (`aria-controls`, `aria-labelledby`), generando gli id se mancano.
+The component links tabs and panels by itself (`aria-controls`, `aria-labelledby`), generating ids if they are missing.
 
-## Attributi, proprietà ed eventi
+## Attributes, properties and events
 
-| Nome             | Tipo                     | Note                                             |
-| ---------------- | ------------------------ | ------------------------------------------------ |
-| `selected`       | attributo / proprietà    | Indice della tab attiva, parte da 0. Default `0` |
-| `tabs`, `panels` | proprietà (sola lettura) | I bottoni e i pannelli                           |
-| `kaamos-change`  | evento                   | Quando l'utente cambia tab. `event.detail.index` |
+| Name             | Type                   | Notes                                           |
+| ---------------- | ---------------------- | ----------------------------------------------- |
+| `selected`       | attribute / property   | Index of the active tab, from 0. Default `0`    |
+| `tabs`, `panels` | properties (read-only) | The buttons and the panels                      |
+| `kaamos-change`  | event                  | When the user changes tab. `event.detail.index` |
 
 ```js
 const tabs = document.querySelector("kaamos-tabs");
@@ -36,12 +38,16 @@ tabs.selected = 2;
 tabs.addEventListener("kaamos-change", (e) => console.log(e.detail.index));
 ```
 
-## Tastiera
+## Keyboard
 
-- **Tab**: entra nella tab attiva, il Tab successivo va dentro il pannello.
-- **← →**: tab precedente e successiva, girando in tondo. La tab si attiva subito (attivazione automatica).
-- **Home / End**: prima e ultima tab.
+- **Tab**: enters the active tab; the next Tab goes into the panel.
+- **← →**: previous and next tab, wrapping around. The tab activates immediately (automatic activation).
+- **Home / End**: first and last tab.
 
-## Tab o pill tab da sole?
+## Tabs or standalone pill tabs?
 
-Usa `<kaamos-tabs>` quando ogni tab mostra un **pannello diverso**. Se invece i bottoni **filtrano la stessa lista** ("All", "Most Popular"), usa le [pill tab](static.md#pill-tab) con `aria-pressed`: per uno screen reader sono due cose diverse.
+Use `<kaamos-tabs>` when each tab shows a **different panel**. If the buttons instead **filter the same list** ("All", "Most Popular"), use [pill tabs](static.md#pill-tab) with `aria-pressed`: for a screen reader they are two different things.
+
+## See also
+
+- [Static classes](static.md#pill-tab)

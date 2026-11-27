@@ -1,72 +1,79 @@
-# Contenitori: card e navigazione principale
+[Home](../README.md) › [Components](../README.md#components) › Containers
+
+# Containers: cards and main navigation
 
 ## Card
 
-Tre classi coprono tutte le card del DESIGN.md: la cornice è la stessa, cambia il contenuto, che costruisci con le classi dei token.
+Three classes cover every card in DESIGN.md: the frame is the same, the content changes, and you build it with the token classes.
 
-| Classe                 | Corrisponde a (DESIGN.md)                         | Aspetto                                                  |
-| ---------------------- | ------------------------------------------------- | -------------------------------------------------------- |
-| `kaamos-card`          | feature-card-dark, pricing-tier-card              | `surface`, bordo `hairline`, padding 24px, raggio 10px   |
-| `kaamos-card-elevated` | feature-card-elevated, pricing-tier-card-featured | come sopra ma `surface-elevated` (un gradino più chiara) |
-| `kaamos-card-compact`  | store-extension-card                              | padding 16px, raggio 8px, contenuto in riga              |
+| Class                  | Matches (DESIGN.md)                               | Look                                                    |
+| ---------------------- | ------------------------------------------------- | ------------------------------------------------------- |
+| `kaamos-card`          | feature-card-dark, pricing-tier-card              | `surface`, `hairline` border, 24px padding, 10px radius |
+| `kaamos-card-elevated` | feature-card-elevated, pricing-tier-card-featured | as above but `surface-elevated` (one step lighter)      |
+| `kaamos-card-compact`  | store-extension-card                              | 16px padding, 8px radius, content in a row              |
 
 ```html
 <article class="kaamos-card">
   <h3 class="text-heading-sm text-ink">Kaamos Mail</h3>
-  <p class="text-body-sm text-mute">Un client email libero e veloce.</p>
+  <p class="text-body-sm text-mute">A free and fast email client.</p>
   <kaamos-button variant="secondary">Learn more →</kaamos-button>
 </article>
 ```
 
-Card dello store (icona, testo, bottone Install):
+Store card (icon, text, Install button):
 
 ```html
 <article class="kaamos-card-compact">
   <span class="kaamos-app-icon-tile"><img src="sorter.svg" alt="" /></span>
   <div class="min-w-0 flex-1">
     <h3 class="text-body-strong text-ink">Mail Sorter</h3>
-    <p class="text-caption-md text-mute">di Kaamos · Ordina la posta con regole locali</p>
+    <p class="text-caption-md text-mute">by Kaamos · Sort mail with local rules</p>
   </div>
   <kaamos-button variant="install">Install</kaamos-button>
 </article>
 ```
 
-Card dei prezzi: `kaamos-card` per i piani normali, `kaamos-card-elevated` per quello in evidenza (l'unica differenza visiva, come da DESIGN.md). Nome del piano in `text-heading-xl`, prezzo in `text-display-lg`.
+Pricing cards: `kaamos-card` for normal plans, `kaamos-card-elevated` for the featured one (the only visual difference, as in DESIGN.md). Plan name in `text-heading-xl`, price in `text-display-lg`.
 
-Il DESIGN.md non usa ombre: le card si staccano dallo sfondo solo con la superficie e il bordo.
+DESIGN.md uses no shadows: cards stand out from the background only through surface and border.
 
-## Navigazione principale
+## Main navigation
 
-Barra in alto da 56px: logo a sinistra, link al centro, azioni a destra. Sotto i 768px i link diventano un cassetto che entra da sinistra, aperto dal bottone hamburger. Non serve JavaScript.
+A 56px top bar: logo on the left, links in the middle, actions on the right. Below 768px the links become a drawer that slides in from the left, opened by the hamburger button. No JavaScript needed.
 
 ```html
 <header class="kaamos-nav">
-  <button class="kaamos-nav-toggle" popovertarget="nav-principale" aria-label="Apri il menu">
-    <!-- icona hamburger (SVG) -->
+  <button class="kaamos-nav-toggle" popovertarget="main-nav" aria-label="Open the menu">
+    <!-- hamburger icon (SVG) -->
   </button>
 
   <a class="kaamos-nav-brand" href="/">Kaamos</a>
 
-  <nav id="nav-principale" popover class="kaamos-nav-links" aria-label="Principale">
+  <nav id="main-nav" popover class="kaamos-nav-links" aria-label="Main">
     <a class="kaamos-nav-link" href="/" aria-current="page">Home</a>
     <a class="kaamos-nav-link" href="/mail">Mail</a>
     <a class="kaamos-nav-link" href="/drive">Drive</a>
   </nav>
 
   <div class="flex items-center gap-3">
-    <a class="kaamos-nav-link kaamos-nav-secondary" href="/login">Accedi</a>
+    <a class="kaamos-nav-link kaamos-nav-secondary" href="/login">Sign in</a>
     <kaamos-button variant="primary">Download</kaamos-button>
   </div>
 </header>
 ```
 
-| Classe                 | Ruolo                                                              |
-| ---------------------- | ------------------------------------------------------------------ |
-| `kaamos-nav`           | La barra (`<header>`), resta in alto quando scorri                 |
-| `kaamos-nav-toggle`    | Bottone hamburger, visibile solo sotto 768px                       |
-| `kaamos-nav-brand`     | Logo/nome: al centro su mobile, a sinistra su desktop              |
-| `kaamos-nav-links`     | Il `<nav popover>`: cassetto su mobile, barra su desktop           |
-| `kaamos-nav-link`      | Un link. Quello della pagina attuale ha `aria-current="page"`      |
-| `kaamos-nav-secondary` | Nasconde un'azione sotto 768px (il "Download" invece resta sempre) |
+| Class                  | Role                                                             |
+| ---------------------- | ---------------------------------------------------------------- |
+| `kaamos-nav`           | The bar (`<header>`), stays at the top when you scroll           |
+| `kaamos-nav-toggle`    | Hamburger button, visible only below 768px                       |
+| `kaamos-nav-brand`     | Logo/name: centred on mobile, on the left on desktop             |
+| `kaamos-nav-links`     | The `<nav popover>`: a drawer on mobile, a bar on desktop        |
+| `kaamos-nav-link`      | A link. The current page's link has `aria-current="page"`        |
+| `kaamos-nav-secondary` | Hides an action below 768px (the "Download" button always stays) |
 
-**Come funziona**: il `<nav>` ha l'attributo `popover`. Su mobile è un vero popover: si apre col bottone, si chiude cliccando fuori o con Esc. Su desktop il CSS lo forza a essere sempre visibile come una barra normale.
+**How it works**: the `<nav>` has the `popover` attribute. On mobile it is a real popover: it opens with the button and closes when you click outside or press Esc. On desktop the CSS forces it to always be visible as a normal bar.
+
+## See also
+
+- [Static classes](static.md): badges and app icon tiles inside cards
+- [Button](button.md)
