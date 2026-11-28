@@ -24,10 +24,11 @@
  * aria-activedescendant dice allo screen reader quale opzione è attiva.
  */
 
-const CHEVRON = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
-  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>`;
-const CHECK = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
-  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>`;
+import { check, chevronDown } from "@kaamos-project/open-design-tokens/icons";
+import { iconMarkup } from "../icon/icon.ts";
+
+const CHEVRON = iconMarkup(chevronDown);
+const CHECK = iconMarkup(check);
 
 /* Il select nativo resta nel DOM (per il form e per la validazione) ma
    invisibile e sotto il campo: così il fumetto di "campo obbligatorio"

@@ -4,11 +4,11 @@
 
 The design system has three kinds of components:
 
-| Kind                       | When                                      | How you use it                     | Examples                                                            |
-| -------------------------- | ----------------------------------------- | ---------------------------------- | ------------------------------------------------------------------- |
-| **Web component**          | the component has behaviour or state      | a tag: `<kaamos-button>`           | button, text-input, search-bar, select, menu, tabs, command-palette |
-| **Static CSS class**       | the component is only style               | a class on an HTML element         | badge, keycap, app-icon-tile, pill-tab, card, nav                   |
-| **Native element + class** | the browser already has the right control | a class on `<input>` or `<dialog>` | checkbox, slider, dialog, popover                                   |
+| Kind                       | When                                      | How you use it                     | Examples                                                                  |
+| -------------------------- | ----------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------- |
+| **Web component**          | the component has behaviour or state      | a tag: `<kaamos-button>`           | button, icon, text-input, search-bar, select, menu, tabs, command-palette |
+| **Static CSS class**       | the component is only style               | a class on an HTML element         | badge, keycap, app-icon-tile, pill-tab, card, nav                         |
+| **Native element + class** | the browser already has the right control | a class on `<input>` or `<dialog>` | checkbox, slider, dialog, popover                                         |
 
 ## Pages
 
@@ -66,6 +66,7 @@ For form fields see [Text input › Angular](components/text-input.md#angular).
 ## Components
 
 - [Button](components/button.md)
+- [Icon](components/icon.md)
 - [Text input](components/text-input.md)
 - [Search bar](components/search-bar.md)
 - [Form controls: checkbox, select, slider](components/form-controls.md)

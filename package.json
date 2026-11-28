@@ -35,6 +35,9 @@
     "check": "vp check",
     "test": "vp test"
   },
+  "dependencies": {
+    "@kaamos-project/open-design-tokens": "^0.2.0"
+  },
   "devDependencies": {
     "@tailwindcss/cli": "4.3.5",
     "@tailwindcss/vite": "4.3.5",

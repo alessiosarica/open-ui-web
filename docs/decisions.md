@@ -48,9 +48,15 @@ Lightweight ADRs: when a decision changes, update its entry and say why.
 **Decision**: `vite-plus` (`vp`) for dev, test, lint, format, type check and pack.
 **Why**: one tool and one config instead of several.
 
+## Lucide icons with a registry
+
+**Decision**: icons are the Lucide set from `@kaamos-project/open-design-tokens/icons` (a dependency). `<kaamos-icon name="...">` draws icons the app registered with `registerIcons({ ... })`; the components' own icons (search, chevron, check) use the same set through `iconMarkup`.
+**Why**: one icon set for web and Flutter; the registry lets the bundler drop every icon the app doesn't import (tree-shaking), instead of shipping all 2,140 (~570 KB).
+**Trade-off**: one line of setup per app, and names are the JavaScript identifiers (`chevronDown`), not Lucide's `chevron-down`. A missing registration only shows a console warning. See [Icon](components/icon.md).
+
 ## License: GPL-3.0
 
-Code under GPL-3.0-only; Inter under SIL OFL 1.1.
+Code under GPL-3.0-only; Inter under SIL OFL 1.1; Lucide icons (from the tokens package) under ISC.
 
 ## See also
 
