@@ -13,6 +13,9 @@
  * <label> (le label annidate non sono valide): usa aria-label.
  */
 
+import { search } from "@kaamos-project/open-design-tokens/icons";
+import { iconMarkup } from "../icon/icon.ts";
+
 /*
  * Lo stile del bordo e dello sfondo sta sul contenitore, non sull'input.
  * focus-within: il contenitore reagisce quando un suo figlio (l'input) ha il focus.
@@ -38,11 +41,7 @@ const INPUT_CLASSES =
  */
 const TEMPLATE = `
 <label class="${CONTAINER_CLASSES}">
-  <svg class="size-4 shrink-0 text-mute" viewBox="0 0 16 16" fill="none"
-       stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-    <circle cx="7" cy="7" r="5" />
-    <path d="M14 14l-3.5-3.5" />
-  </svg>
+  ${iconMarkup(search, "size-4 shrink-0 text-mute")}
   <input class="${INPUT_CLASSES}" type="search" />
 </label>`;
 

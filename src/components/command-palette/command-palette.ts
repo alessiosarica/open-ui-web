@@ -17,17 +17,16 @@
  *     Così puoi continuare a scrivere mentre ti muovi con le frecce.
  */
 
+import { search } from "@kaamos-project/open-design-tokens/icons";
+import { iconMarkup } from "../icon/icon.ts";
+
 const ROW_SELECTOR = "button";
 
 /* Template statico: solo markup scritto da noi (vedi search-bar per il perché). */
 const TEMPLATE = `
 <dialog class="kaamos-command-palette">
   <div class="flex items-center gap-3 border-b border-hairline px-4">
-    <svg class="size-4 shrink-0 text-mute" viewBox="0 0 16 16" fill="none"
-         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-      <circle cx="7" cy="7" r="5" />
-      <path d="M14 14l-3.5-3.5" />
-    </svg>
+    ${iconMarkup(search, "size-4 shrink-0 text-mute")}
     <input class="h-12 flex-1 min-w-0 bg-transparent text-body-md text-on-dark outline-none placeholder:text-mute"
            type="text" role="combobox" aria-expanded="true" aria-autocomplete="list" autocomplete="off" />
   </div>

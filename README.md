@@ -9,6 +9,7 @@ The full guide lives in the wiki in [`docs/`](docs/README.md): installation, eve
 | Component                              | Kind                   | Use                                                 |
 | -------------------------------------- | ---------------------- | --------------------------------------------------- |
 | Button                                 | web component          | `<kaamos-button variant="primary">`                 |
+| Icon (Lucide)                          | web component          | `<kaamos-icon name="mail">`                         |
 | Text input                             | web component          | `<kaamos-text-input name="email">`                  |
 | Search bar                             | web component          | `<kaamos-search-bar name="q">`                      |
 | Command palette                        | web component          | `<kaamos-command-palette shortcut="k">`             |

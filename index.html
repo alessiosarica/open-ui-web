@@ -324,7 +324,35 @@
           disabled
         ></kaamos-search-bar>
       </section>
+
+      <section class="flex flex-col gap-4">
+        <h2 class="text-heading-md text-ink">Icone (Lucide)</h2>
+        <div class="flex flex-wrap items-center gap-4 text-on-dark">
+          <kaamos-icon name="mail"></kaamos-icon>
+          <kaamos-icon name="inbox"></kaamos-icon>
+          <kaamos-icon name="send"></kaamos-icon>
+          <kaamos-icon name="archive"></kaamos-icon>
+          <kaamos-icon name="trash"></kaamos-icon>
+          <kaamos-icon name="star" class="text-mute"></kaamos-icon>
+          <kaamos-icon name="settings" class="size-6" label="Impostazioni"></kaamos-icon>
+        </div>
+      </section>
     </main>
+
+    <script type="module">
+      // Only the icons registered here end up in the bundle.
+      import { registerIcons } from "/src/index.ts";
+      import {
+        archive,
+        inbox,
+        mail,
+        send,
+        settings,
+        star,
+        trash,
+      } from "@kaamos-project/open-design-tokens/icons";
+      registerIcons({ archive, inbox, mail, send, settings, star, trash });
+    </script>
 
     <script type="module">
       // Mostra cosa riceve il form: prova che gli input in light DOM partecipano al form.
